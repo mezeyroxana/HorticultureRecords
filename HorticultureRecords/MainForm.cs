@@ -52,9 +52,9 @@ namespace HorticultureRecords
                         {
                             actualRecord.Id,
                             actualRecord.Name,
+                            actualRecord.Genus,
                             actualRecord.Quantity,
-                            marketableQuantity,
-                            actualRecord.Genus
+                            marketableQuantity                            
                         }
                     );
             }
