@@ -31,9 +31,7 @@ namespace HorticultureRecords
             foreach (FlowerRecord orderedFlowers in selectedOrderedFlowers)
             {
                 FlowerRecord flowerData = (FlowerRecord)(new FlowerManager().Select(new FlowerRecord(orderedFlowers.Id)));
-
                 ordersFlowers_dgw.Rows.Add(
-
                     new object[]
                     {
                         orderRecord.Id,
@@ -54,24 +52,40 @@ namespace HorticultureRecords
             FillCustomerRecords(orderingCustomer);
         }
 
-        private void ClearCustomerRecords()
+        private void ordersFlowers_dgw_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            customerName_tb.Text = "";
-            customerPhoneNumber_tb.Text = "";
-            customerEmail_tb.Text = "";
-            customerZipcode_tb.Text = "";
-            customerCity_tb.Text = "";
-            customerAddress_tb.Text = "";
-        }
+            var senderGrid = (DataGridView)sender;
 
-        private void FillCustomerRecords(CustomerRecord customer)
-        {
-            customerName_tb.Text = customer.Name;
-            customerPhoneNumber_tb.Text = customer.PhoneNumber;
-            customerEmail_tb.Text = customer.Email;
-            customerZipcode_tb.Text = customer.Zipcode;
-            customerCity_tb.Text = customer.CityName;
-            customerAddress_tb.Text = customer.Address;
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn &&
+                e.ColumnIndex == ordersFlowers_dgw.Columns["ModifyFlower"].Index &&
+                e.RowIndex >= 0)
+            {
+                OrderRecord modifiedRecord = new OrderRecord(
+                   int.Parse(senderGrid.Rows[e.RowIndex].Cells["FlowerOrderId"].Value.ToString()),
+                   int.Parse(senderGrid.Rows[e.RowIndex].Cells["FlowerId"].Value.ToString()),
+                   int.Parse(senderGrid.Rows[e.RowIndex].Cells["Quantity"].Value.ToString())
+                );
+                int modifiedRows = new OrderManager().UpdateFlowerOrder(modifiedRecord);
+                if (modifiedRows > 0)
+                    MessageBox.Show("Sikeres módosítás!");
+                else MessageBox.Show("Sikertelen módosítás!");
+                LoadOrdersForm();
+            }
+
+            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn &&
+                e.ColumnIndex == ordersFlowers_dgw.Columns["DeleteFlower"].Index &&
+                e.RowIndex >= 0)
+            {
+                OrderRecord toBeDeleted = new OrderRecord(
+                    int.Parse(senderGrid.Rows[e.RowIndex].Cells["FlowerOrderId"].Value.ToString()),
+                    int.Parse(senderGrid.Rows[e.RowIndex].Cells["FlowerId"].Value.ToString())
+                );
+                int deletedRows = new OrderManager().DeleteFlowerOrder(toBeDeleted);
+                if (deletedRows < 1)
+                    MessageBox.Show("Sikeres törlés!");
+                else MessageBox.Show("Sikertelen törlés");
+                LoadOrdersForm();
+            }
         }
 
         private void saveCustomerData_btn_Click(object sender, EventArgs e)
@@ -88,8 +102,6 @@ namespace HorticultureRecords
             else MessageBox.Show("Sikertelen módosítás!");
             LoadOrdersForm();
         }
-
-
 
         private void orders_dgw_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -136,54 +148,37 @@ namespace HorticultureRecords
             foreach (OrderRecord actualRecord in orders)
             {
                 actualRecord.Customer = (CustomerRecord)(new CustomerManager().Select(new CustomerRecord(actualRecord.CustomerId)));
-                orders_dgw.Rows.Add
-                    (
-                        new object[]
-                        {
-                            actualRecord.Id,
-                            actualRecord.CustomerId,
-                            actualRecord.Customer.Name,
-                            actualRecord.IsDeliveryRequested,
-                            actualRecord.IsCompleted
-                        }
-                    );
+                orders_dgw.Rows.Add(
+                    new object[]
+                    {
+                        actualRecord.Id,
+                        actualRecord.CustomerId,
+                        actualRecord.Customer.Name,
+                        actualRecord.IsDeliveryRequested,
+                        actualRecord.IsCompleted
+                    }
+                );
             }
         }
 
-        private void ordersFlowers_dgw_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void ClearCustomerRecords()
         {
-            var senderGrid = (DataGridView)sender;
+            customerName_tb.Text = "";
+            customerPhoneNumber_tb.Text = "";
+            customerEmail_tb.Text = "";
+            customerZipcode_tb.Text = "";
+            customerCity_tb.Text = "";
+            customerAddress_tb.Text = "";
+        }
 
-            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn &&
-                e.ColumnIndex == ordersFlowers_dgw.Columns["ModifyFlower"].Index &&
-                e.RowIndex >= 0)
-            {
-                OrderRecord modifiedRecord = new OrderRecord(
-                   int.Parse(senderGrid.Rows[e.RowIndex].Cells["FlowerOrderId"].Value.ToString()),
-                   int.Parse(senderGrid.Rows[e.RowIndex].Cells["FlowerId"].Value.ToString()),
-                   int.Parse(senderGrid.Rows[e.RowIndex].Cells["Quantity"].Value.ToString())
-                );
-                int modifiedRows = new OrderManager().UpdateFlowerOrder(modifiedRecord);
-                if (modifiedRows > 0)
-                    MessageBox.Show("Sikeres módosítás!");
-                else MessageBox.Show("Sikertelen módosítás!");
-                LoadOrdersForm();
-            }
-
-            if (senderGrid.Columns[e.ColumnIndex] is DataGridViewButtonColumn &&
-                e.ColumnIndex == ordersFlowers_dgw.Columns["DeleteFlower"].Index &&
-                e.RowIndex >= 0)
-            {
-                OrderRecord toBeDeleted = new OrderRecord(
-                    int.Parse(senderGrid.Rows[e.RowIndex].Cells["FlowerOrderId"].Value.ToString()),
-                    int.Parse(senderGrid.Rows[e.RowIndex].Cells["FlowerId"].Value.ToString())
-                );
-                int deletedRows = new OrderManager().DeleteFlowerOrder(toBeDeleted);
-                if (deletedRows < 1)
-                    MessageBox.Show("Sikeres törlés!");
-                else MessageBox.Show("Sikertelen törlés");
-                LoadOrdersForm();
-            }
+        private void FillCustomerRecords(CustomerRecord customer)
+        {
+            customerName_tb.Text = customer.Name;
+            customerPhoneNumber_tb.Text = customer.PhoneNumber;
+            customerEmail_tb.Text = customer.Email;
+            customerZipcode_tb.Text = customer.Zipcode;
+            customerCity_tb.Text = customer.CityName;
+            customerAddress_tb.Text = customer.Address;
         }
     }
 }

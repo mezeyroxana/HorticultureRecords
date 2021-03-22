@@ -1,6 +1,7 @@
 ﻿using HorticultureRecords.Database.Interfaces;
 using HorticultureRecords.Database.Records;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 
 namespace HorticultureRecords.Database.Managers
@@ -10,55 +11,69 @@ namespace HorticultureRecords.Database.Managers
         public int Delete(Record record)
         {
             SqlCommand command = new SqlCommand();
-            command.CommandType = System.Data.CommandType.StoredProcedure;
+            command.CommandType = CommandType.StoredProcedure;
             command.CommandText = @"DELETE_flowers";
-            command.Parameters.Add("p_id", System.Data.SqlDbType.Int).Value = record.Id;
+            command.Parameters.Add("p_id", SqlDbType.Int).Value = record.Id;
 
-            command.Connection = getConnection();
-            int deletedRows = command.ExecuteNonQuery();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                if (connection.State == ConnectionState.Closed)
+                    connection.Open();
 
-            command.Connection.Close();
-            return deletedRows;
+                command.Connection = connection;
+                int deletedRows = command.ExecuteNonQuery();
+                return deletedRows;
+            }
+
         }
 
         public int Insert(Record record)
         {
             SqlCommand command = new SqlCommand();
-            command.CommandType = System.Data.CommandType.Text;
+            command.CommandType = CommandType.Text;
             command.CommandText = @"INSERT INTO flowers (name, quantity, genus) VALUES (@name, @quantity, @genus)";
             command.Parameters.AddWithValue("@name", (record as FlowerRecord).Name);
             command.Parameters.AddWithValue("@quantity", (record as FlowerRecord).Quantity);
             command.Parameters.AddWithValue("@genus", (record as FlowerRecord).Genus);
 
-            command.Connection = getConnection();
-            int insertedRows = command.ExecuteNonQuery();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                if (connection.State == ConnectionState.Closed)
+                    connection.Open();
 
-            command.Connection.Close();
-            return insertedRows;
+                command.Connection = connection;
+                int insertedRows = command.ExecuteNonQuery();
+                return insertedRows;
+            }
         }
 
         public Record Select(Record record)
         {
             SqlCommand command = new SqlCommand();
-            command.CommandType = System.Data.CommandType.Text;
+            command.CommandType = CommandType.Text;
             command.CommandText = @"SELECT * FROM flowers WHERE id = @id";
             command.Parameters.AddWithValue("@id", record.Id);
 
-            command.Connection = getConnection();
-            SqlDataReader reader = command.ExecuteReader();
-
-            FlowerRecord selectedRecord = new FlowerRecord();
-            if (reader.Read())
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                selectedRecord = new FlowerRecord(
-                   int.Parse(reader["id"].ToString()),
-                   reader["name"].ToString(),
-                   int.Parse(reader["quantity"].ToString()),
-                   reader["genus"].ToString());
+                if (connection.State == ConnectionState.Closed)
+                    connection.Open();
+
+                command.Connection = connection;
+                SqlDataReader reader = command.ExecuteReader();
+
+                FlowerRecord selectedRecord = new FlowerRecord();
+                if (reader.Read())
+                {
+                    selectedRecord = new FlowerRecord(
+                       int.Parse(reader["id"].ToString()),
+                       reader["name"].ToString(),
+                       int.Parse(reader["quantity"].ToString()),
+                       reader["genus"].ToString());
+                }
+                return selectedRecord;
             }
 
-            command.Connection.Close();
-            return selectedRecord;
         }
 
         public List<Record> Select()
@@ -69,19 +84,24 @@ namespace HorticultureRecords.Database.Managers
             command.CommandType = System.Data.CommandType.Text;
             command.CommandText = @"SELECT * FROM flowers ORDER BY name";
 
-            command.Connection = getConnection();
-            SqlDataReader reader = command.ExecuteReader();
-
-            while (reader.Read())
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                FlowerRecord nextRecord = new FlowerRecord(
-                    int.Parse(reader["id"].ToString()),
-                    reader["name"].ToString(),
-                    int.Parse(reader["quantity"].ToString()),
-                    reader["genus"].ToString());
-                records.Add(nextRecord);
+                if (connection.State == ConnectionState.Closed)
+                    connection.Open();
+
+                command.Connection = connection;
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    FlowerRecord nextRecord = new FlowerRecord(
+                        int.Parse(reader["id"].ToString()),
+                        reader["name"].ToString(),
+                        int.Parse(reader["quantity"].ToString()),
+                        reader["genus"].ToString());
+                    records.Add(nextRecord);
+                }
             }
-            command.Connection.Close();
             return records;
         }
 
@@ -95,11 +115,15 @@ namespace HorticultureRecords.Database.Managers
             command.Parameters.AddWithValue("@quantity", (record as FlowerRecord).Quantity);
             command.Parameters.AddWithValue("@genus", (record as FlowerRecord).Genus);
 
-            command.Connection = getConnection();
-            int updatedRows = command.ExecuteNonQuery();
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                if (connection.State == ConnectionState.Closed)
+                    connection.Open();
 
-            command.Connection.Close();
-            return updatedRows;
+                command.Connection = connection;
+                int updatedRows = command.ExecuteNonQuery();
+                return updatedRows;
+            }
         }
 
         public List<Record> SelectOnlyAvailableFlowers()
@@ -110,19 +134,24 @@ namespace HorticultureRecords.Database.Managers
             command.CommandType = System.Data.CommandType.Text;
             command.CommandText = @"SELECT * FROM flowers WHERE quantity > 0 ORDER BY name";
 
-            command.Connection = getConnection();
-            SqlDataReader reader = command.ExecuteReader();
-
-            while (reader.Read())
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                FlowerRecord nextRecord = new FlowerRecord(
-                    int.Parse(reader["id"].ToString()),
-                    reader["name"].ToString(),
-                    int.Parse(reader["quantity"].ToString()),
-                    reader["genus"].ToString());
-                records.Add(nextRecord);
+                if (connection.State == ConnectionState.Closed)
+                    connection.Open();
+
+                command.Connection = connection;
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    FlowerRecord nextRecord = new FlowerRecord(
+                        int.Parse(reader["id"].ToString()),
+                        reader["name"].ToString(),
+                        int.Parse(reader["quantity"].ToString()),
+                        reader["genus"].ToString());
+                    records.Add(nextRecord);
+                }
             }
-            command.Connection.Close();
             return records;
         }
 

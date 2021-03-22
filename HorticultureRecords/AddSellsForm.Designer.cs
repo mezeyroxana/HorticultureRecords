@@ -60,7 +60,6 @@ namespace HorticultureRecords
             this.flowerQuantity_tb.Size = new System.Drawing.Size(160, 26);
             this.flowerQuantity_tb.TabIndex = 4;
             this.flowerQuantity_tb.TextChanged += new System.EventHandler(this.flowerQuantity_tb_TextChanged);
-            this.flowerQuantity_tb.Leave += new System.EventHandler(this.flowerQuantity_tb_Leave);
             // 
             // label6
             // 
@@ -103,6 +102,8 @@ namespace HorticultureRecords
             // 
             // flowerGenus_cb
             // 
+            this.flowerGenus_cb.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.flowerGenus_cb.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.flowerGenus_cb.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.flowerGenus_cb.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(160)))), ((int)(((byte)(31)))));
             this.flowerGenus_cb.FormattingEnabled = true;

@@ -29,6 +29,50 @@ namespace HorticultureRecords
             }
         }
 
+        private void isDelivery_chkb_CheckedChanged(object sender, EventArgs e)
+        {
+            customerAddress_panel.Visible = !customerAddress_panel.Visible;
+        }
+
+        private void customerZipcode_tb_Leave(object sender, EventArgs e)
+        {
+            if (customerCity_tb.Text == "")
+            {
+                string zipcode = customerZipcode_tb.Text;
+                CityRecord city = new CityManager().SelectCityByZipcode(zipcode);
+                customerCity_tb.Text = city.Name;
+            }
+        }
+
+        private void customerCity_tb_Leave(object sender, EventArgs e)
+        {
+            if (customerZipcode_tb.Text == "")
+            {
+                string cityName = customerCity_tb.Text;
+                CityRecord city = new CityManager().SelectZipcodeByCity(cityName);
+                customerZipcode_tb.Text = city.Zipcode;
+            }
+        }
+
+        private void flowerQuantity_tb_Leave(object sender, EventArgs e)
+        {
+            if (!int.TryParse(flowerQuantity_tb.Text, out int quantity))
+                MessageBox.Show("Csak számokat írj be mennyiség mezőbe!");
+            else if (flowerGenus_cb.SelectedItem == null)
+                MessageBox.Show("Válassz ki virágfajtát!");
+            else
+            {
+                FlowerRecord selectedFlower = (FlowerRecord)flowerGenus_cb.SelectedItem;
+                int maxOrderableFlowerQuantity = new FlowerManager().SelectMarketableFlowerQuantity(selectedFlower);
+                if (maxOrderableFlowerQuantity < quantity)
+                {
+                    MessageBox.Show("Nem érhető el ez a virágmennyiség! Elérhető: " + maxOrderableFlowerQuantity);
+                    flowerQuantity_tb.Text = "";
+                }
+
+            }
+        }
+
         private void nextFlowerOrder_btn_Click(object sender, EventArgs e)
         {
             int orderedQuantity;
@@ -95,7 +139,6 @@ namespace HorticultureRecords
             }
             if (affectedRows > 0)
                 ClearDataFields();
-            //MessageBox.Show(affectedRows.ToString());
         }
 
         private void ClearDataFields()
@@ -110,51 +153,6 @@ namespace HorticultureRecords
             flowerGenus_cb.SelectedIndex = -1;
             flowerQuantity_tb.Text = "";
             orderedFlowers_dgv.Rows.Clear();
-        }
-
-
-        private void isDelivery_chkb_CheckedChanged(object sender, EventArgs e)
-        {
-            customerAddress_panel.Visible = !customerAddress_panel.Visible;
-        }
-
-        private void customerZipcode_tb_Leave(object sender, EventArgs e)
-        {
-            if (customerCity_tb.Text == "")
-            {
-                string zipcode = customerZipcode_tb.Text;
-                CityRecord city = new CityManager().SelectCityByZipcode(zipcode);
-                customerCity_tb.Text = city.Name;
-            }
-        }
-
-        private void customerCity_tb_Leave(object sender, EventArgs e)
-        {
-            if (customerZipcode_tb.Text == "")
-            {
-                string cityName = customerCity_tb.Text;
-                CityRecord city = new CityManager().SelectZipcodeByCity(cityName);
-                customerZipcode_tb.Text = city.Zipcode;
-            }
-        }
-
-        private void flowerQuantity_tb_Leave(object sender, EventArgs e)
-        {
-            if (!int.TryParse(flowerQuantity_tb.Text, out int quantity))
-                MessageBox.Show("Csak számokat írj be mennyiség mezőbe!");
-            else if (flowerGenus_cb.SelectedItem == null)
-                MessageBox.Show("Válassz ki virágfajtát!");
-            else
-            {
-                FlowerRecord selectedFlower = (FlowerRecord)flowerGenus_cb.SelectedItem;
-                int maxOrderableFlowerQuantity = new FlowerManager().SelectMarketableFlowerQuantity(selectedFlower);
-                if (maxOrderableFlowerQuantity < quantity)
-                {
-                    MessageBox.Show("Nem érhető el ez a virágmennyiség! Elérhető: " + maxOrderableFlowerQuantity);
-                    flowerQuantity_tb.Text = "";
-                }
-
-            }
         }
     }
 }

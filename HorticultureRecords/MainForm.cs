@@ -33,6 +33,12 @@ namespace HorticultureRecords
             ordersForm.Show();
         }
 
+        private void addNewSells_btn_Click(object sender, EventArgs e)
+        {
+            AddSellsForm addSellsForm = new AddSellsForm();
+            addSellsForm.Show();
+        }
+
         private void MainForm_Activated(object sender, EventArgs e)
         {
             FillFlowerDataGridView();
@@ -54,16 +60,10 @@ namespace HorticultureRecords
                             actualRecord.Name,
                             actualRecord.Genus,
                             actualRecord.Quantity,
-                            marketableQuantity                            
+                            marketableQuantity
                         }
                     );
             }
-        }
-
-        private void addNewSells_btn_Click(object sender, EventArgs e)
-        {
-            AddSellsForm addSellsForm = new AddSellsForm();
-            addSellsForm.Show();
         }
     }
 }

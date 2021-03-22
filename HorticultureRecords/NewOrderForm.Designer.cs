@@ -46,6 +46,9 @@ namespace HorticultureRecords
             this.flowerQuantity_tb = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.orderedFlowers_dgv = new System.Windows.Forms.DataGridView();
+            this.FlowerId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FlowerGenus = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FlowerQuantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.customerAddress_tb = new System.Windows.Forms.TextBox();
@@ -54,9 +57,6 @@ namespace HorticultureRecords
             this.customerAddress_panel = new System.Windows.Forms.Panel();
             this.nextFlowerOrder_btn = new System.Windows.Forms.Button();
             this.saveOrder_btn = new System.Windows.Forms.Button();
-            this.FlowerQuantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FlowerGenus = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FlowerId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.orderedFlowers_dgv)).BeginInit();
             this.customerAddress_panel.SuspendLayout();
             this.SuspendLayout();
@@ -165,6 +165,8 @@ namespace HorticultureRecords
             // 
             // flowerGenus_cb
             // 
+            this.flowerGenus_cb.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.flowerGenus_cb.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.flowerGenus_cb.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(160)))), ((int)(((byte)(31)))));
             this.flowerGenus_cb.FormattingEnabled = true;
             this.flowerGenus_cb.Location = new System.Drawing.Point(682, 75);
@@ -253,6 +255,28 @@ namespace HorticultureRecords
             this.orderedFlowers_dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.orderedFlowers_dgv.Size = new System.Drawing.Size(440, 240);
             this.orderedFlowers_dgv.TabIndex = 20;
+            // 
+            // FlowerId
+            // 
+            this.FlowerId.HeaderText = "Id";
+            this.FlowerId.Name = "FlowerId";
+            this.FlowerId.ReadOnly = true;
+            this.FlowerId.Visible = false;
+            // 
+            // FlowerGenus
+            // 
+            this.FlowerGenus.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.FlowerGenus.HeaderText = "Fajta";
+            this.FlowerGenus.Name = "FlowerGenus";
+            this.FlowerGenus.ReadOnly = true;
+            // 
+            // FlowerQuantity
+            // 
+            this.FlowerQuantity.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.FlowerQuantity.HeaderText = "Mennyiség";
+            this.FlowerQuantity.Name = "FlowerQuantity";
+            this.FlowerQuantity.ReadOnly = true;
+            this.FlowerQuantity.Width = 106;
             // 
             // label7
             // 
@@ -354,28 +378,6 @@ namespace HorticultureRecords
             this.saveOrder_btn.Text = "Rendelés rögzítése";
             this.saveOrder_btn.UseVisualStyleBackColor = false;
             this.saveOrder_btn.Click += new System.EventHandler(this.saveOrder_btn_Click);
-            // 
-            // FlowerQuantity
-            // 
-            this.FlowerQuantity.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
-            this.FlowerQuantity.HeaderText = "Mennyiség";
-            this.FlowerQuantity.Name = "FlowerQuantity";
-            this.FlowerQuantity.ReadOnly = true;
-            this.FlowerQuantity.Width = 106;
-            // 
-            // FlowerGenus
-            // 
-            this.FlowerGenus.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.FlowerGenus.HeaderText = "Fajta";
-            this.FlowerGenus.Name = "FlowerGenus";
-            this.FlowerGenus.ReadOnly = true;
-            // 
-            // FlowerId
-            // 
-            this.FlowerId.HeaderText = "Id";
-            this.FlowerId.Name = "FlowerId";
-            this.FlowerId.ReadOnly = true;
-            this.FlowerId.Visible = false;
             // 
             // NewOrderForm
             // 

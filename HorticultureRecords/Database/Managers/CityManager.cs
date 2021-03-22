@@ -1,7 +1,5 @@
-﻿using HorticultureRecords.Database.Interfaces;
-using HorticultureRecords.Database.Records;
-using System;
-using System.Collections.Generic;
+﻿using HorticultureRecords.Database.Records;
+using System.Data;
 using System.Data.SqlClient;
 
 namespace HorticultureRecords.Database.Managers
@@ -11,47 +9,55 @@ namespace HorticultureRecords.Database.Managers
         public CityRecord SelectCityByZipcode(string zipcode)
         {
             SqlCommand command = new SqlCommand();
-            command.CommandType = System.Data.CommandType.Text;
+            command.CommandType = CommandType.Text;
             command.CommandText = @"SELECT * FROM Cities WHERE zipcode = @zipcode";
             command.Parameters.AddWithValue("@zipcode", zipcode);
 
-            command.Connection = getConnection();
-            SqlDataReader reader = command.ExecuteReader();
-
-            CityRecord selectedRecord = new CityRecord();
-            if (reader.Read())
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                selectedRecord = new CityRecord(
-                    reader["zipcode"].ToString(),
-                    reader["cityName"].ToString()
-                );
-            }
+                if (connection.State == ConnectionState.Closed)
+                    connection.Open();
 
-            command.Connection.Close();
-            return selectedRecord;
+                command.Connection = connection;
+                SqlDataReader reader = command.ExecuteReader();
+
+                CityRecord selectedRecord = new CityRecord();
+                if (reader.Read())
+                {
+                    selectedRecord = new CityRecord(
+                        reader["zipcode"].ToString(),
+                        reader["cityName"].ToString()
+                    );
+                }
+                return selectedRecord;
+            }
         }
 
         public CityRecord SelectZipcodeByCity(string city)
         {
             SqlCommand command = new SqlCommand();
-            command.CommandType = System.Data.CommandType.Text;
+            command.CommandType = CommandType.Text;
             command.CommandText = @"SELECT * FROM Cities WHERE cityName = @city";
             command.Parameters.AddWithValue("@city", city);
 
-            command.Connection = getConnection();
-            SqlDataReader reader = command.ExecuteReader();
-
-            CityRecord selectedRecord = new CityRecord();
-            if (reader.Read())
+            using (SqlConnection connection = new SqlConnection(connectionString))
             {
-                selectedRecord = new CityRecord(
-                    reader["zipcode"].ToString(),
-                    reader["cityName"].ToString()
-                );
-            }
+                if (connection.State == ConnectionState.Closed)
+                    connection.Open();
 
-            command.Connection.Close();
-            return selectedRecord;
+                command.Connection = connection;
+                SqlDataReader reader = command.ExecuteReader();
+
+                CityRecord selectedRecord = new CityRecord();
+                if (reader.Read())
+                {
+                    selectedRecord = new CityRecord(
+                        reader["zipcode"].ToString(),
+                        reader["cityName"].ToString()
+                    );
+                }
+                return selectedRecord;
+            }
         }
     }
 }
