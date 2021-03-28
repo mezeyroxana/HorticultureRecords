@@ -57,9 +57,7 @@ namespace HorticultureRecords
             this.label2 = new System.Windows.Forms.Label();
             this.customerPhoneNumber_tb = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.customerZipcode_tb = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.customerCity_tb = new System.Windows.Forms.TextBox();
             this.customerAddress_tb = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -138,7 +136,6 @@ namespace HorticultureRecords
             this.FlowerGenus.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.FlowerGenus.HeaderText = "Virág fajta";
             this.FlowerGenus.Name = "FlowerGenus";
-            this.FlowerGenus.ReadOnly = true;
             // 
             // Quantity
             // 
@@ -225,7 +222,7 @@ namespace HorticultureRecords
             this.orders_dgw.RowTemplate.Height = 30;
             this.orders_dgw.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.orders_dgw.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.orders_dgw.Size = new System.Drawing.Size(586, 610);
+            this.orders_dgw.Size = new System.Drawing.Size(586, 592);
             this.orders_dgw.TabIndex = 18;
             this.orders_dgw.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.orders_dgw_CellContentClick);
             this.orders_dgw.SelectionChanged += new System.EventHandler(this.orders_dgw_SelectionChanged);
@@ -347,45 +344,23 @@ namespace HorticultureRecords
             this.label3.TabIndex = 23;
             this.label3.Text = "Email cím:";
             // 
-            // customerZipcode_tb
-            // 
-            this.customerZipcode_tb.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.customerZipcode_tb.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(160)))), ((int)(((byte)(31)))));
-            this.customerZipcode_tb.Location = new System.Drawing.Point(210, 174);
-            this.customerZipcode_tb.Margin = new System.Windows.Forms.Padding(4);
-            this.customerZipcode_tb.Name = "customerZipcode_tb";
-            this.customerZipcode_tb.Size = new System.Drawing.Size(112, 26);
-            this.customerZipcode_tb.TabIndex = 26;
-            // 
             // label9
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Cambria", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(160)))), ((int)(((byte)(31)))));
-            this.label9.Location = new System.Drawing.Point(51, 218);
+            this.label9.Location = new System.Drawing.Point(51, 178);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(65, 22);
             this.label9.TabIndex = 27;
             this.label9.Text = "Város:";
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Cambria", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(160)))), ((int)(((byte)(31)))));
-            this.label4.Location = new System.Drawing.Point(51, 178);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(130, 22);
-            this.label4.TabIndex = 25;
-            this.label4.Text = "Irányítószám:";
-            // 
             // customerCity_tb
             // 
             this.customerCity_tb.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.customerCity_tb.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(160)))), ((int)(((byte)(31)))));
-            this.customerCity_tb.Location = new System.Drawing.Point(210, 214);
+            this.customerCity_tb.Location = new System.Drawing.Point(210, 174);
             this.customerCity_tb.Margin = new System.Windows.Forms.Padding(4);
             this.customerCity_tb.Name = "customerCity_tb";
             this.customerCity_tb.Size = new System.Drawing.Size(272, 26);
@@ -395,7 +370,7 @@ namespace HorticultureRecords
             // 
             this.customerAddress_tb.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.customerAddress_tb.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(160)))), ((int)(((byte)(31)))));
-            this.customerAddress_tb.Location = new System.Drawing.Point(210, 254);
+            this.customerAddress_tb.Location = new System.Drawing.Point(210, 214);
             this.customerAddress_tb.Margin = new System.Windows.Forms.Padding(4);
             this.customerAddress_tb.Name = "customerAddress_tb";
             this.customerAddress_tb.Size = new System.Drawing.Size(272, 26);
@@ -406,7 +381,7 @@ namespace HorticultureRecords
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Cambria", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(160)))), ((int)(((byte)(31)))));
-            this.label8.Location = new System.Drawing.Point(51, 258);
+            this.label8.Location = new System.Drawing.Point(51, 218);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(78, 22);
@@ -419,7 +394,7 @@ namespace HorticultureRecords
             this.saveCustomerData_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.saveCustomerData_btn.Font = new System.Drawing.Font("Cambria", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.saveCustomerData_btn.ForeColor = System.Drawing.Color.White;
-            this.saveCustomerData_btn.Location = new System.Drawing.Point(210, 290);
+            this.saveCustomerData_btn.Location = new System.Drawing.Point(210, 264);
             this.saveCustomerData_btn.Margin = new System.Windows.Forms.Padding(4);
             this.saveCustomerData_btn.Name = "saveCustomerData_btn";
             this.saveCustomerData_btn.Size = new System.Drawing.Size(160, 55);
@@ -436,11 +411,9 @@ namespace HorticultureRecords
             this.customerData_panel.Controls.Add(this.label2);
             this.customerData_panel.Controls.Add(this.saveCustomerData_btn);
             this.customerData_panel.Controls.Add(this.label3);
-            this.customerData_panel.Controls.Add(this.customerZipcode_tb);
             this.customerData_panel.Controls.Add(this.customerPhoneNumber_tb);
             this.customerData_panel.Controls.Add(this.label9);
             this.customerData_panel.Controls.Add(this.customerName_tb);
-            this.customerData_panel.Controls.Add(this.label4);
             this.customerData_panel.Controls.Add(this.label1);
             this.customerData_panel.Controls.Add(this.customerCity_tb);
             this.customerData_panel.Controls.Add(this.customerEmail_tb);
@@ -449,7 +422,7 @@ namespace HorticultureRecords
             this.customerData_panel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
             this.customerData_panel.Location = new System.Drawing.Point(621, 312);
             this.customerData_panel.Name = "customerData_panel";
-            this.customerData_panel.Size = new System.Drawing.Size(550, 358);
+            this.customerData_panel.Size = new System.Drawing.Size(550, 340);
             this.customerData_panel.TabIndex = 32;
             // 
             // label5
@@ -471,7 +444,7 @@ namespace HorticultureRecords
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1184, 681);
+            this.ClientSize = new System.Drawing.Size(1184, 664);
             this.Controls.Add(this.customerData_panel);
             this.Controls.Add(this.orders_dgw);
             this.Controls.Add(this.label7);
@@ -499,9 +472,7 @@ namespace HorticultureRecords
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox customerPhoneNumber_tb;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox customerZipcode_tb;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox customerCity_tb;
         private System.Windows.Forms.TextBox customerAddress_tb;
         private System.Windows.Forms.Label label8;

@@ -36,8 +36,7 @@ namespace HorticultureRecords.Database.Managers
             command.Parameters.Add("@customerName", SqlDbType.NVarChar).Value = (record as OrderRecord).Customer.Name;
             command.Parameters.Add("@customerPhoneNumber", SqlDbType.NVarChar).Value = (record as OrderRecord).Customer.PhoneNumber;
             command.Parameters.Add("@customerEmail", SqlDbType.NVarChar).Value = (record as OrderRecord).Customer.Email;
-            command.Parameters.Add("@customerCityZipcode", SqlDbType.NChar).Value = (record as OrderRecord).Customer.City.Zipcode;
-            command.Parameters.Add("@customerCityName", SqlDbType.NVarChar).Value = (record as OrderRecord).Customer.City.Name;
+            command.Parameters.Add("@customerCityName", SqlDbType.NVarChar).Value = (record as OrderRecord).Customer.City;
             command.Parameters.Add("@customerAddress", SqlDbType.NVarChar).Value = (record as OrderRecord).Customer.Address;
             command.Parameters.Add("@flowerName", SqlDbType.NVarChar).Value = (record as OrderRecord).Flower.Name;
             command.Parameters.Add("@quantity", SqlDbType.Int).Value = (record as OrderRecord).Quantity;

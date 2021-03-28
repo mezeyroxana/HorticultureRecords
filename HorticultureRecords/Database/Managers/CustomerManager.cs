@@ -69,7 +69,7 @@ namespace HorticultureRecords.Database.Managers
                         reader["name"].ToString(),
                         reader["phonenumber"].ToString(),
                         reader["email"].ToString(),
-                        reader["cityId"].ToString(),
+                        reader["city"].ToString(),
                         reader["address"].ToString()
                     );
                 }
@@ -100,7 +100,7 @@ namespace HorticultureRecords.Database.Managers
                         reader["name"].ToString(),
                         reader["phonenumber"].ToString(),
                         reader["email"].ToString(),
-                        reader["cityId"].ToString(),
+                        reader["city"].ToString(),
                         reader["address"].ToString());
                     records.Add(nextRecord);
                 }
@@ -111,16 +111,15 @@ namespace HorticultureRecords.Database.Managers
         public int Update(Record record)
         {
             SqlCommand command = new SqlCommand();
-            command.CommandText = "UPDATE_CUSTOMERS";
-            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = @"UPDATE Customers SET Name = @name, PhoneNumber = @phoneNumber, Email = @email, City = @city, Address = @address WHERE Id = @id;";
+            command.CommandType = CommandType.Text;
 
-            command.Parameters.Add("@id", SqlDbType.Int).Value = record.Id;
-            command.Parameters.Add("@name", SqlDbType.NVarChar).Value = (record as CustomerRecord).Name;
-            command.Parameters.Add("@phoneNumber", SqlDbType.NVarChar).Value = (record as CustomerRecord).PhoneNumber;
-            command.Parameters.Add("@email", SqlDbType.NVarChar).Value = (record as CustomerRecord).Email;
-            command.Parameters.Add("@zipcode", SqlDbType.NChar).Value = (record as CustomerRecord).Zipcode;
-            command.Parameters.Add("@cityName", SqlDbType.NVarChar).Value = (record as CustomerRecord).CityName;
-            command.Parameters.Add("@address", SqlDbType.NVarChar).Value = (record as CustomerRecord).Address;
+            command.Parameters.AddWithValue("@id", record.Id);
+            command.Parameters.AddWithValue("@name", (record as CustomerRecord).Name);
+            command.Parameters.AddWithValue("@phoneNumber", (record as CustomerRecord).PhoneNumber);
+            command.Parameters.AddWithValue("@email", (record as CustomerRecord).Email);
+            command.Parameters.AddWithValue("@city", (record as CustomerRecord).City);
+            command.Parameters.AddWithValue("@address", (record as CustomerRecord).Address);
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {

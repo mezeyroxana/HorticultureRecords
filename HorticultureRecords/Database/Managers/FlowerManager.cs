@@ -51,7 +51,7 @@ namespace HorticultureRecords.Database.Managers
         {
             SqlCommand command = new SqlCommand();
             command.CommandType = CommandType.Text;
-            command.CommandText = @"SELECT * FROM flowers WHERE id = @id";
+            command.CommandText = @"SELECT Flowers.Id, Flowers.Name, Flowers.Quantity, FlowerGenera.Genus FROM Flowers INNER JOIN FlowerGenera ON Flowers.GenusId = FlowerGenera.Id WHERE Flowers.Id = @id";
             command.Parameters.AddWithValue("@id", record.Id);
 
             using (SqlConnection connection = new SqlConnection(connectionString))
@@ -66,10 +66,10 @@ namespace HorticultureRecords.Database.Managers
                 if (reader.Read())
                 {
                     selectedRecord = new FlowerRecord(
-                       int.Parse(reader["id"].ToString()),
-                       reader["name"].ToString(),
-                       int.Parse(reader["quantity"].ToString()),
-                       reader["genus"].ToString());
+                       int.Parse(reader[0].ToString()),
+                       reader[1].ToString(),
+                       int.Parse(reader[2].ToString()),
+                       reader[3].ToString());
                 }
                 return selectedRecord;
             }
@@ -81,8 +81,8 @@ namespace HorticultureRecords.Database.Managers
             List<Record> records = new List<Record>();
 
             SqlCommand command = new SqlCommand();
-            command.CommandType = System.Data.CommandType.Text;
-            command.CommandText = @"SELECT * FROM flowers ORDER BY name";
+            command.CommandType = CommandType.Text;
+            command.CommandText = @"SELECT Flowers.Id, Flowers.Name, Flowers.Quantity, FlowerGenera.Genus FROM Flowers INNER JOIN FlowerGenera ON Flowers.GenusId = FlowerGenera.Id ORDER BY Flowers.GenusId";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -95,10 +95,10 @@ namespace HorticultureRecords.Database.Managers
                 while (reader.Read())
                 {
                     FlowerRecord nextRecord = new FlowerRecord(
-                        int.Parse(reader["id"].ToString()),
-                        reader["name"].ToString(),
-                        int.Parse(reader["quantity"].ToString()),
-                        reader["genus"].ToString());
+                        int.Parse(reader[0].ToString()),
+                        reader[1].ToString(),
+                        int.Parse(reader[2].ToString()),
+                        reader[3].ToString());
                     records.Add(nextRecord);
                 }
             }
@@ -108,7 +108,7 @@ namespace HorticultureRecords.Database.Managers
         public int Update(Record record)
         {
             SqlCommand command = new SqlCommand();
-            command.CommandType = System.Data.CommandType.Text;
+            command.CommandType = CommandType.Text;
             command.CommandText = @"UPDATE Flowers SET Name = @name, Quantity = @quantity, Genus = @genus WHERE Id = @id";
             command.Parameters.AddWithValue("@id", record.Id);
             command.Parameters.AddWithValue("@name", (record as FlowerRecord).Name);
@@ -131,8 +131,8 @@ namespace HorticultureRecords.Database.Managers
             List<Record> records = new List<Record>();
 
             SqlCommand command = new SqlCommand();
-            command.CommandType = System.Data.CommandType.Text;
-            command.CommandText = @"SELECT * FROM flowers WHERE quantity > 0 ORDER BY name";
+            command.CommandType = CommandType.Text;
+            command.CommandText = @"SELECT Flowers.Id, Flowers.Name, Flowers.Quantity, FlowerGenera.Genus FROM Flowers INNER JOIN FlowerGenera ON Flowers.GenusId = FlowerGenera.Id WHERE Flowers.Quantity > 0 ORDER BY Flowers.GenusId";
 
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -145,10 +145,10 @@ namespace HorticultureRecords.Database.Managers
                 while (reader.Read())
                 {
                     FlowerRecord nextRecord = new FlowerRecord(
-                        int.Parse(reader["id"].ToString()),
-                        reader["name"].ToString(),
-                        int.Parse(reader["quantity"].ToString()),
-                        reader["genus"].ToString());
+                        int.Parse(reader[0].ToString()),
+                        reader[1].ToString(),
+                        int.Parse(reader[2].ToString()),
+                        reader[3].ToString());
                     records.Add(nextRecord);
                 }
             }

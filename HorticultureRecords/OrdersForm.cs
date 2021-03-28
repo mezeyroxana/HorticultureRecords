@@ -44,11 +44,6 @@ namespace HorticultureRecords
 
             Record customer = new CustomerRecord(int.Parse(selectedRow.Cells["OrderingCustomerId"].Value.ToString()));
             CustomerRecord orderingCustomer = (CustomerRecord)new CustomerManager().Select(customer);
-            if (orderingCustomer.Zipcode != "")
-            {
-                CityRecord cityRecord = new CityManager().SelectCityByZipcode(orderingCustomer.Zipcode);
-                orderingCustomer.City = cityRecord;
-            }
             FillCustomerRecords(orderingCustomer);
         }
 
@@ -65,10 +60,11 @@ namespace HorticultureRecords
                    int.Parse(senderGrid.Rows[e.RowIndex].Cells["FlowerId"].Value.ToString()),
                    int.Parse(senderGrid.Rows[e.RowIndex].Cells["Quantity"].Value.ToString())
                 );
+
                 int modifiedRows = new OrderManager().UpdateFlowerOrder(modifiedRecord);
                 if (modifiedRows > 0)
                     MessageBox.Show("Sikeres módosítás!");
-                else MessageBox.Show("Sikertelen módosítás!");
+                else MessageBox.Show("A módosítás sikertelen volt!\nLehetséges ok: nincs ennyi elérhető virág!");
                 LoadOrdersForm();
             }
 
@@ -94,7 +90,7 @@ namespace HorticultureRecords
             customerData.Name = customerName_tb.Text;
             customerData.PhoneNumber = customerPhoneNumber_tb.Text;
             customerData.Email = customerEmail_tb.Text;
-            customerData.City = new CityRecord(customerZipcode_tb.Text, customerCity_tb.Text);
+            customerData.City =  customerCity_tb.Text;
             customerData.Address = customerAddress_tb.Text;
             int affectedRows = new CustomerManager().Update(customerData);
             if (affectedRows >= 1)
@@ -166,7 +162,6 @@ namespace HorticultureRecords
             customerName_tb.Text = "";
             customerPhoneNumber_tb.Text = "";
             customerEmail_tb.Text = "";
-            customerZipcode_tb.Text = "";
             customerCity_tb.Text = "";
             customerAddress_tb.Text = "";
         }
@@ -176,8 +171,7 @@ namespace HorticultureRecords
             customerName_tb.Text = customer.Name;
             customerPhoneNumber_tb.Text = customer.PhoneNumber;
             customerEmail_tb.Text = customer.Email;
-            customerZipcode_tb.Text = customer.Zipcode;
-            customerCity_tb.Text = customer.CityName;
+            customerCity_tb.Text = customer.City;
             customerAddress_tb.Text = customer.Address;
         }
     }

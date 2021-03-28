@@ -22,19 +22,8 @@
             get { return email; }
             set { email = value; }
         }
-
-        public string Zipcode
-        {
-            get { return city.Zipcode; }
-        }
-
-        public string CityName
-        {
-            get { return city.Name; }
-        }
-
-        private CityRecord city;
-        public CityRecord City
+        private string city;
+        public string City
         {
             get { return city; }
             set { city = value; }
@@ -51,12 +40,12 @@
 
         public CustomerRecord(int? id) : base(id) { }
 
-        public CustomerRecord(int? id, string name, string phoneNumber, string email, string cityZipcode, string address) : this(id)
+        public CustomerRecord(int? id, string name, string phoneNumber, string email, string city, string address) : this(id)
         {
             this.name = name;
             this.phoneNumber = phoneNumber;
             this.email = email;
-            this.city = new CityRecord(cityZipcode);
+            this.city = city;
             this.address = address;
         }
     }

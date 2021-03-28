@@ -38,8 +38,6 @@ namespace HorticultureRecords
             this.customerPhoneNumber_tb = new System.Windows.Forms.TextBox();
             this.customerEmail_tb = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.customerZipcode_tb = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.isDelivery_chkb = new System.Windows.Forms.CheckBox();
             this.flowerGenus_cb = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -124,28 +122,6 @@ namespace HorticultureRecords
             this.label3.TabIndex = 4;
             this.label3.Text = "Email cím:";
             // 
-            // customerZipcode_tb
-            // 
-            this.customerZipcode_tb.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(160)))), ((int)(((byte)(31)))));
-            this.customerZipcode_tb.Location = new System.Drawing.Point(170, 1);
-            this.customerZipcode_tb.Margin = new System.Windows.Forms.Padding(4);
-            this.customerZipcode_tb.Name = "customerZipcode_tb";
-            this.customerZipcode_tb.Size = new System.Drawing.Size(112, 26);
-            this.customerZipcode_tb.TabIndex = 9;
-            this.customerZipcode_tb.Leave += new System.EventHandler(this.customerZipcode_tb_Leave);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Cambria", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(160)))), ((int)(((byte)(31)))));
-            this.label4.Location = new System.Drawing.Point(0, 6);
-            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(130, 22);
-            this.label4.TabIndex = 8;
-            this.label4.Text = "Irányítószám:";
-            // 
             // isDelivery_chkb
             // 
             this.isDelivery_chkb.AutoSize = true;
@@ -161,7 +137,6 @@ namespace HorticultureRecords
             this.isDelivery_chkb.TabIndex = 6;
             this.isDelivery_chkb.Text = "Kiszállítás";
             this.isDelivery_chkb.UseVisualStyleBackColor = true;
-            this.isDelivery_chkb.CheckedChanged += new System.EventHandler(this.isDelivery_chkb_CheckedChanged);
             // 
             // flowerGenus_cb
             // 
@@ -333,13 +308,10 @@ namespace HorticultureRecords
             this.customerCity_tb.Name = "customerCity_tb";
             this.customerCity_tb.Size = new System.Drawing.Size(272, 26);
             this.customerCity_tb.TabIndex = 11;
-            this.customerCity_tb.Leave += new System.EventHandler(this.customerCity_tb_Leave);
             // 
             // customerAddress_panel
             // 
-            this.customerAddress_panel.Controls.Add(this.customerZipcode_tb);
             this.customerAddress_panel.Controls.Add(this.label9);
-            this.customerAddress_panel.Controls.Add(this.label4);
             this.customerAddress_panel.Controls.Add(this.customerCity_tb);
             this.customerAddress_panel.Controls.Add(this.customerAddress_tb);
             this.customerAddress_panel.Controls.Add(this.label8);
@@ -347,7 +319,6 @@ namespace HorticultureRecords
             this.customerAddress_panel.Name = "customerAddress_panel";
             this.customerAddress_panel.Size = new System.Drawing.Size(451, 126);
             this.customerAddress_panel.TabIndex = 7;
-            this.customerAddress_panel.Visible = false;
             // 
             // nextFlowerOrder_btn
             // 
@@ -423,8 +394,6 @@ namespace HorticultureRecords
         private System.Windows.Forms.TextBox customerPhoneNumber_tb;
         private System.Windows.Forms.TextBox customerEmail_tb;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox customerZipcode_tb;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.CheckBox isDelivery_chkb;
         private System.Windows.Forms.ComboBox flowerGenus_cb;
         private System.Windows.Forms.Label label5;

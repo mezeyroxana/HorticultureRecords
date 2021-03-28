@@ -167,12 +167,14 @@ namespace HorticultureRecords
             // 
             this.NameColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.NameColumn.HeaderText = "Név";
+            this.NameColumn.MinimumWidth = 50;
             this.NameColumn.Name = "NameColumn";
             this.NameColumn.ReadOnly = true;
             // 
             // GenusColumn
             // 
             this.GenusColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.GenusColumn.FillWeight = 1F;
             this.GenusColumn.HeaderText = "Fajta";
             this.GenusColumn.Name = "GenusColumn";
             this.GenusColumn.ReadOnly = true;

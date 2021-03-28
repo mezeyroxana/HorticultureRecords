@@ -70,11 +70,9 @@
     <Compile Include="Database\Interfaces\IDataManipulationLanguage.cs" />
     <Compile Include="Database\Interfaces\IQueryLanguage.cs" />
     <Compile Include="Database\Managers\BaseDatabaseHelper.cs" />
-    <Compile Include="Database\Managers\CityManager.cs" />
     <Compile Include="Database\Managers\CustomerManager.cs" />
     <Compile Include="Database\Managers\FlowerManager.cs" />
     <Compile Include="Database\Managers\OrderManager.cs" />
-    <Compile Include="Database\Records\CityRecord.cs" />
     <Compile Include="Database\Records\CustomerRecord.cs" />
     <Compile Include="Database\Records\FlowerRecord.cs" />
     <Compile Include="Database\Records\OrderRecord.cs" />

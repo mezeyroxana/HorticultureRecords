@@ -29,31 +29,6 @@ namespace HorticultureRecords
             }
         }
 
-        private void isDelivery_chkb_CheckedChanged(object sender, EventArgs e)
-        {
-            customerAddress_panel.Visible = !customerAddress_panel.Visible;
-        }
-
-        private void customerZipcode_tb_Leave(object sender, EventArgs e)
-        {
-            if (customerCity_tb.Text == "")
-            {
-                string zipcode = customerZipcode_tb.Text;
-                CityRecord city = new CityManager().SelectCityByZipcode(zipcode);
-                customerCity_tb.Text = city.Name;
-            }
-        }
-
-        private void customerCity_tb_Leave(object sender, EventArgs e)
-        {
-            if (customerZipcode_tb.Text == "")
-            {
-                string cityName = customerCity_tb.Text;
-                CityRecord city = new CityManager().SelectZipcodeByCity(cityName);
-                customerZipcode_tb.Text = city.Zipcode;
-            }
-        }
-
         private void flowerQuantity_tb_Leave(object sender, EventArgs e)
         {
             if (!int.TryParse(flowerQuantity_tb.Text, out int quantity))
@@ -69,7 +44,6 @@ namespace HorticultureRecords
                     MessageBox.Show("Nem érhető el ez a virágmennyiség! Elérhető: " + maxOrderableFlowerQuantity);
                     flowerQuantity_tb.Text = "";
                 }
-
             }
         }
 
@@ -122,7 +96,7 @@ namespace HorticultureRecords
             orderingCustomer.Name = customerName_tb.Text;
             orderingCustomer.PhoneNumber = customerPhoneNumber_tb.Text;
             orderingCustomer.Email = customerEmail_tb.Text;
-            orderingCustomer.City = new CityRecord(customerZipcode_tb.Text, customerCity_tb.Text);
+            orderingCustomer.City = customerCity_tb.Text;
             orderingCustomer.Address = customerAddress_tb.Text;
 
             OrderRecord orderRecord = new OrderRecord();
@@ -147,7 +121,6 @@ namespace HorticultureRecords
             customerPhoneNumber_tb.Text = "";
             customerEmail_tb.Text = "";
             isDelivery_chkb.Checked = false;
-            customerZipcode_tb.Text = "";
             customerCity_tb.Text = "";
             customerAddress_tb.Text = "";
             flowerGenus_cb.SelectedIndex = -1;

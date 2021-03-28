@@ -18,7 +18,6 @@ namespace HorticultureRecords
         {
             flowersInStock_dgw.DefaultCellStyle.Font = new Font("Cambria", 11.75F); ;
             flowersInStock_dgw.ColumnHeadersDefaultCellStyle.Font = new Font("Cambria", 15.75F, FontStyle.Bold);
-            FillFlowerDataGridView();
         }
 
         private void newOrder_btn_Click(object sender, EventArgs e)
