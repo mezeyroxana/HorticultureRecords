@@ -35,8 +35,8 @@ namespace HorticultureRecords
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OrdersForm));
             this.ordersFlowers_dgw = new System.Windows.Forms.DataGridView();
-            this.FlowerOrderId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FlowerId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FlowerGenus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -49,6 +49,7 @@ namespace HorticultureRecords
             this.OrderName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IsDeliveryRequested = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.IsCompleted = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.CommentColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ModifyOrder = new System.Windows.Forms.DataGridViewButtonColumn();
             this.DeleteOrder = new System.Windows.Forms.DataGridViewButtonColumn();
             this.customerEmail_tb = new System.Windows.Forms.TextBox();
@@ -71,7 +72,6 @@ namespace HorticultureRecords
             // 
             // ordersFlowers_dgw
             // 
-            this.ordersFlowers_dgw.AllowUserToAddRows = false;
             this.ordersFlowers_dgw.AllowUserToDeleteRows = false;
             this.ordersFlowers_dgw.AllowUserToResizeColumns = false;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(249)))), ((int)(((byte)(239)))));
@@ -90,7 +90,6 @@ namespace HorticultureRecords
             this.ordersFlowers_dgw.ColumnHeadersHeight = 45;
             this.ordersFlowers_dgw.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.ordersFlowers_dgw.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.FlowerOrderId,
             this.FlowerId,
             this.FlowerGenus,
             this.Quantity,
@@ -107,40 +106,41 @@ namespace HorticultureRecords
             this.ordersFlowers_dgw.DefaultCellStyle = dataGridViewCellStyle3;
             this.ordersFlowers_dgw.EnableHeadersVisualStyles = false;
             this.ordersFlowers_dgw.GridColor = System.Drawing.Color.Black;
-            this.ordersFlowers_dgw.Location = new System.Drawing.Point(621, 60);
+            this.ordersFlowers_dgw.Location = new System.Drawing.Point(831, 60);
             this.ordersFlowers_dgw.Margin = new System.Windows.Forms.Padding(4);
             this.ordersFlowers_dgw.MultiSelect = false;
             this.ordersFlowers_dgw.Name = "ordersFlowers_dgw";
             this.ordersFlowers_dgw.RowHeadersVisible = false;
+            this.ordersFlowers_dgw.RowHeadersWidth = 45;
             this.ordersFlowers_dgw.RowTemplate.Height = 30;
             this.ordersFlowers_dgw.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.ordersFlowers_dgw.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.ordersFlowers_dgw.Size = new System.Drawing.Size(550, 240);
+            this.ordersFlowers_dgw.Size = new System.Drawing.Size(500, 240);
             this.ordersFlowers_dgw.TabIndex = 1;
             this.ordersFlowers_dgw.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.ordersFlowers_dgw_CellContentClick);
-            // 
-            // FlowerOrderId
-            // 
-            this.FlowerOrderId.HeaderText = "Megrendelés azonosító";
-            this.FlowerOrderId.Name = "FlowerOrderId";
-            this.FlowerOrderId.Visible = false;
+            this.ordersFlowers_dgw.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.ordersFlowers_dgw_CellEndEdit);
+            this.ordersFlowers_dgw.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.ordersFlowers_dgw_EditingControlShowing);
             // 
             // FlowerId
             // 
-            this.FlowerId.HeaderText = "VirágId";
+            this.FlowerId.HeaderText = "Virág azonosító";
+            this.FlowerId.MinimumWidth = 6;
             this.FlowerId.Name = "FlowerId";
             this.FlowerId.Visible = false;
+            this.FlowerId.Width = 110;
             // 
             // FlowerGenus
             // 
             this.FlowerGenus.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.FlowerGenus.HeaderText = "Virág fajta";
+            this.FlowerGenus.MinimumWidth = 6;
             this.FlowerGenus.Name = "FlowerGenus";
             // 
             // Quantity
             // 
             this.Quantity.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
             this.Quantity.HeaderText = "Mennyiség";
+            this.Quantity.MinimumWidth = 6;
             this.Quantity.Name = "Quantity";
             this.Quantity.Width = 106;
             // 
@@ -148,17 +148,21 @@ namespace HorticultureRecords
             // 
             this.ModifyFlower.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ModifyFlower.HeaderText = "";
+            this.ModifyFlower.MinimumWidth = 6;
             this.ModifyFlower.Name = "ModifyFlower";
             this.ModifyFlower.Text = "Mentés";
             this.ModifyFlower.UseColumnTextForButtonValue = true;
+            this.ModifyFlower.Width = 110;
             // 
             // DeleteFlower
             // 
             this.DeleteFlower.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.DeleteFlower.HeaderText = "";
+            this.DeleteFlower.MinimumWidth = 6;
             this.DeleteFlower.Name = "DeleteFlower";
             this.DeleteFlower.Text = "Törlés";
             this.DeleteFlower.UseColumnTextForButtonValue = true;
+            this.DeleteFlower.Width = 110;
             // 
             // label7
             // 
@@ -169,7 +173,7 @@ namespace HorticultureRecords
             this.label7.Location = new System.Drawing.Point(0, 0);
             this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(1184, 50);
+            this.label7.Size = new System.Drawing.Size(1344, 50);
             this.label7.TabIndex = 17;
             this.label7.Text = " Megrendelések";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -200,6 +204,7 @@ namespace HorticultureRecords
             this.OrderName,
             this.IsDeliveryRequested,
             this.IsCompleted,
+            this.CommentColumn,
             this.ModifyOrder,
             this.DeleteOrder});
             dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
@@ -218,11 +223,12 @@ namespace HorticultureRecords
             this.orders_dgw.MultiSelect = false;
             this.orders_dgw.Name = "orders_dgw";
             this.orders_dgw.RowHeadersVisible = false;
+            this.orders_dgw.RowHeadersWidth = 45;
             this.orders_dgw.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.orders_dgw.RowTemplate.Height = 30;
             this.orders_dgw.RowTemplate.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.orders_dgw.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.orders_dgw.Size = new System.Drawing.Size(586, 592);
+            this.orders_dgw.Size = new System.Drawing.Size(810, 592);
             this.orders_dgw.TabIndex = 18;
             this.orders_dgw.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.orders_dgw_CellContentClick);
             this.orders_dgw.SelectionChanged += new System.EventHandler(this.orders_dgw_SelectionChanged);
@@ -230,19 +236,24 @@ namespace HorticultureRecords
             // OrderId
             // 
             this.OrderId.HeaderText = "RendelésId";
+            this.OrderId.MinimumWidth = 6;
             this.OrderId.Name = "OrderId";
             this.OrderId.Visible = false;
+            this.OrderId.Width = 110;
             // 
             // OrderingCustomerId
             // 
             this.OrderingCustomerId.HeaderText = "MegrendelőId";
+            this.OrderingCustomerId.MinimumWidth = 6;
             this.OrderingCustomerId.Name = "OrderingCustomerId";
             this.OrderingCustomerId.Visible = false;
+            this.OrderingCustomerId.Width = 110;
             // 
             // OrderName
             // 
             this.OrderName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.OrderName.HeaderText = "Megrendelő neve";
+            this.OrderName.MinimumWidth = 6;
             this.OrderName.Name = "OrderName";
             this.OrderName.ReadOnly = true;
             // 
@@ -250,6 +261,7 @@ namespace HorticultureRecords
             // 
             this.IsDeliveryRequested.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
             this.IsDeliveryRequested.HeaderText = "Szállítás";
+            this.IsDeliveryRequested.MinimumWidth = 6;
             this.IsDeliveryRequested.Name = "IsDeliveryRequested";
             this.IsDeliveryRequested.Width = 68;
             // 
@@ -257,32 +269,45 @@ namespace HorticultureRecords
             // 
             this.IsCompleted.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
             this.IsCompleted.HeaderText = "Teljesített";
+            this.IsCompleted.MinimumWidth = 6;
             this.IsCompleted.Name = "IsCompleted";
             this.IsCompleted.Width = 79;
+            // 
+            // CommentColumn
+            // 
+            this.CommentColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.CommentColumn.HeaderText = "Megjegyzés";
+            this.CommentColumn.MinimumWidth = 6;
+            this.CommentColumn.Name = "CommentColumn";
+            this.CommentColumn.Width = 111;
             // 
             // ModifyOrder
             // 
             this.ModifyOrder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ModifyOrder.HeaderText = "";
+            this.ModifyOrder.MinimumWidth = 6;
             this.ModifyOrder.Name = "ModifyOrder";
             this.ModifyOrder.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.ModifyOrder.Text = "Mentés";
             this.ModifyOrder.UseColumnTextForButtonValue = true;
+            this.ModifyOrder.Width = 110;
             // 
             // DeleteOrder
             // 
             this.DeleteOrder.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.DeleteOrder.HeaderText = "";
+            this.DeleteOrder.MinimumWidth = 6;
             this.DeleteOrder.Name = "DeleteOrder";
             this.DeleteOrder.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.DeleteOrder.Text = "Törlés";
             this.DeleteOrder.UseColumnTextForButtonValue = true;
+            this.DeleteOrder.Width = 110;
             // 
             // customerEmail_tb
             // 
             this.customerEmail_tb.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.customerEmail_tb.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(160)))), ((int)(((byte)(31)))));
-            this.customerEmail_tb.Location = new System.Drawing.Point(210, 134);
+            this.customerEmail_tb.Location = new System.Drawing.Point(189, 135);
             this.customerEmail_tb.Margin = new System.Windows.Forms.Padding(4);
             this.customerEmail_tb.Name = "customerEmail_tb";
             this.customerEmail_tb.Size = new System.Drawing.Size(272, 26);
@@ -293,7 +318,7 @@ namespace HorticultureRecords
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Cambria", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(160)))), ((int)(((byte)(31)))));
-            this.label1.Location = new System.Drawing.Point(51, 58);
+            this.label1.Location = new System.Drawing.Point(30, 59);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(48, 22);
@@ -304,7 +329,7 @@ namespace HorticultureRecords
             // 
             this.customerName_tb.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.customerName_tb.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(160)))), ((int)(((byte)(31)))));
-            this.customerName_tb.Location = new System.Drawing.Point(210, 54);
+            this.customerName_tb.Location = new System.Drawing.Point(189, 55);
             this.customerName_tb.Margin = new System.Windows.Forms.Padding(4);
             this.customerName_tb.Name = "customerName_tb";
             this.customerName_tb.Size = new System.Drawing.Size(272, 26);
@@ -315,7 +340,7 @@ namespace HorticultureRecords
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Cambria", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(160)))), ((int)(((byte)(31)))));
-            this.label2.Location = new System.Drawing.Point(51, 98);
+            this.label2.Location = new System.Drawing.Point(30, 99);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(124, 22);
@@ -326,7 +351,7 @@ namespace HorticultureRecords
             // 
             this.customerPhoneNumber_tb.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.customerPhoneNumber_tb.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(160)))), ((int)(((byte)(31)))));
-            this.customerPhoneNumber_tb.Location = new System.Drawing.Point(210, 94);
+            this.customerPhoneNumber_tb.Location = new System.Drawing.Point(189, 95);
             this.customerPhoneNumber_tb.Margin = new System.Windows.Forms.Padding(4);
             this.customerPhoneNumber_tb.Name = "customerPhoneNumber_tb";
             this.customerPhoneNumber_tb.Size = new System.Drawing.Size(272, 26);
@@ -337,7 +362,7 @@ namespace HorticultureRecords
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Cambria", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(160)))), ((int)(((byte)(31)))));
-            this.label3.Location = new System.Drawing.Point(51, 138);
+            this.label3.Location = new System.Drawing.Point(30, 139);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(101, 22);
@@ -349,7 +374,7 @@ namespace HorticultureRecords
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Cambria", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(160)))), ((int)(((byte)(31)))));
-            this.label9.Location = new System.Drawing.Point(51, 178);
+            this.label9.Location = new System.Drawing.Point(30, 179);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(65, 22);
@@ -360,7 +385,7 @@ namespace HorticultureRecords
             // 
             this.customerCity_tb.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.customerCity_tb.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(160)))), ((int)(((byte)(31)))));
-            this.customerCity_tb.Location = new System.Drawing.Point(210, 174);
+            this.customerCity_tb.Location = new System.Drawing.Point(189, 175);
             this.customerCity_tb.Margin = new System.Windows.Forms.Padding(4);
             this.customerCity_tb.Name = "customerCity_tb";
             this.customerCity_tb.Size = new System.Drawing.Size(272, 26);
@@ -370,7 +395,7 @@ namespace HorticultureRecords
             // 
             this.customerAddress_tb.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.customerAddress_tb.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(160)))), ((int)(((byte)(31)))));
-            this.customerAddress_tb.Location = new System.Drawing.Point(210, 214);
+            this.customerAddress_tb.Location = new System.Drawing.Point(189, 215);
             this.customerAddress_tb.Margin = new System.Windows.Forms.Padding(4);
             this.customerAddress_tb.Name = "customerAddress_tb";
             this.customerAddress_tb.Size = new System.Drawing.Size(272, 26);
@@ -381,7 +406,7 @@ namespace HorticultureRecords
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Cambria", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(160)))), ((int)(((byte)(31)))));
-            this.label8.Location = new System.Drawing.Point(51, 218);
+            this.label8.Location = new System.Drawing.Point(30, 219);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(78, 22);
@@ -394,7 +419,7 @@ namespace HorticultureRecords
             this.saveCustomerData_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.saveCustomerData_btn.Font = new System.Drawing.Font("Cambria", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.saveCustomerData_btn.ForeColor = System.Drawing.Color.White;
-            this.saveCustomerData_btn.Location = new System.Drawing.Point(210, 264);
+            this.saveCustomerData_btn.Location = new System.Drawing.Point(189, 263);
             this.saveCustomerData_btn.Margin = new System.Windows.Forms.Padding(4);
             this.saveCustomerData_btn.Name = "saveCustomerData_btn";
             this.saveCustomerData_btn.Size = new System.Drawing.Size(160, 55);
@@ -420,9 +445,9 @@ namespace HorticultureRecords
             this.customerData_panel.Controls.Add(this.customerAddress_tb);
             this.customerData_panel.Controls.Add(this.label8);
             this.customerData_panel.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.customerData_panel.Location = new System.Drawing.Point(621, 312);
+            this.customerData_panel.Location = new System.Drawing.Point(831, 312);
             this.customerData_panel.Name = "customerData_panel";
-            this.customerData_panel.Size = new System.Drawing.Size(550, 340);
+            this.customerData_panel.Size = new System.Drawing.Size(501, 340);
             this.customerData_panel.TabIndex = 32;
             // 
             // label5
@@ -434,7 +459,7 @@ namespace HorticultureRecords
             this.label5.Location = new System.Drawing.Point(0, 0);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(548, 40);
+            this.label5.Size = new System.Drawing.Size(499, 40);
             this.label5.TabIndex = 32;
             this.label5.Text = " Megrendelő adatai";
             this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -444,11 +469,12 @@ namespace HorticultureRecords
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1184, 664);
+            this.ClientSize = new System.Drawing.Size(1344, 664);
             this.Controls.Add(this.customerData_panel);
             this.Controls.Add(this.orders_dgw);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.ordersFlowers_dgw);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "OrdersForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Megrendelések";
@@ -484,9 +510,9 @@ namespace HorticultureRecords
         private System.Windows.Forms.DataGridViewTextBoxColumn OrderName;
         private System.Windows.Forms.DataGridViewCheckBoxColumn IsDeliveryRequested;
         private System.Windows.Forms.DataGridViewCheckBoxColumn IsCompleted;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CommentColumn;
         private System.Windows.Forms.DataGridViewButtonColumn ModifyOrder;
         private System.Windows.Forms.DataGridViewButtonColumn DeleteOrder;
-        private System.Windows.Forms.DataGridViewTextBoxColumn FlowerOrderId;
         private System.Windows.Forms.DataGridViewTextBoxColumn FlowerId;
         private System.Windows.Forms.DataGridViewTextBoxColumn FlowerGenus;
         private System.Windows.Forms.DataGridViewTextBoxColumn Quantity;

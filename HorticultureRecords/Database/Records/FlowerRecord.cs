@@ -11,6 +11,13 @@ namespace HorticultureRecords.Database.Records
             set { name = value; }
         }
 
+        private string genus;
+        public string Genus
+        {
+            get { return genus; }
+            set { genus = value; }
+        }
+
         private int quantity;
         public int Quantity
         {
@@ -22,11 +29,15 @@ namespace HorticultureRecords.Database.Records
             }
         }
 
-        private string genus;
-        public string Genus
+        private int avalilableQuantity;
+        public int AvailableQuantity
         {
-            get { return genus; }
-            set { genus = value; }
+            get { return avalilableQuantity; }
+            set
+            {
+                checkQuantity(value);
+                avalilableQuantity = value;
+            }
         }
 
         public FlowerRecord() : base() { }
@@ -49,6 +60,12 @@ namespace HorticultureRecords.Database.Records
             checkQuantity(quantity);
             this.quantity = quantity;
             this.genus = genus;
+        }
+
+        public FlowerRecord(int? id, string name, int quantity, string genus, int availableQuantity) : this(id, name, quantity, genus)
+        {
+            checkQuantity(availableQuantity);
+            this.avalilableQuantity = availableQuantity;
         }
 
         private static void checkQuantity(int quantity)

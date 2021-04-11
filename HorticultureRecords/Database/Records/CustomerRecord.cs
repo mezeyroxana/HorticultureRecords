@@ -40,9 +40,13 @@
 
         public CustomerRecord(int? id) : base(id) { }
 
-        public CustomerRecord(int? id, string name, string phoneNumber, string email, string city, string address) : this(id)
+        public CustomerRecord(int? id, string name) : this(id)
         {
             this.name = name;
+        }
+
+        public CustomerRecord(int? id, string name, string phoneNumber, string email, string city, string address) : this(id, name)
+        {
             this.phoneNumber = phoneNumber;
             this.email = email;
             this.city = city;

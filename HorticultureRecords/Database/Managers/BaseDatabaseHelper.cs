@@ -1,9 +1,10 @@
-﻿using System.Data.SqlClient;
+﻿using System.Configuration;
+using System.Data.SqlClient;
 
 namespace HorticultureRecords.Database
 {
-    class BaseDatabaseHelper
-    { 
-        protected string connectionString = "Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|HorticultureDatabase.mdf;Integrated Security=True";
+    static class BaseDatabaseHelper
+    {
+        public static string connectionString = ConfigurationManager.ConnectionStrings["FlowerDatabase"].ConnectionString;
     }
 }

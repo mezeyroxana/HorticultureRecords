@@ -20,6 +20,11 @@ namespace HorticultureRecords
             flowersInStock_dgw.ColumnHeadersDefaultCellStyle.Font = new Font("Cambria", 15.75F, FontStyle.Bold);
         }
 
+        private void reload_btn_Click(object sender, EventArgs e)
+        {
+            FillFlowerDataGridView();
+        }
+
         private void newOrder_btn_Click(object sender, EventArgs e)
         {
             NewOrderForm newOrderForm = new NewOrderForm();
@@ -47,21 +52,28 @@ namespace HorticultureRecords
         {
             flowersInStock_dgw.Rows.Clear();
             flowersInStock_dgw.Refresh();
-            List<Record> records = new FlowerManager().Select();
+            List<Record> records = new List<Record>();
+            try
+            {
+                records = new FlowerManager().Select();
+            }
+            catch (DatabaseException e)
+            {
+                MessageBox.Show(e.Message);
+            }
+
             foreach (FlowerRecord actualRecord in records)
             {
-                int marketableQuantity = new FlowerManager().SelectMarketableFlowerQuantity(actualRecord);
-                flowersInStock_dgw.Rows.Add
-                    (
-                        new object[]
-                        {
-                            actualRecord.Id,
-                            actualRecord.Name,
-                            actualRecord.Genus,
-                            actualRecord.Quantity,
-                            marketableQuantity
-                        }
-                    );
+                flowersInStock_dgw.Rows.Add(
+                    new object[]
+                    {
+                        actualRecord.Id,
+                        actualRecord.Name,
+                        actualRecord.Genus,
+                        actualRecord.Quantity,
+                        actualRecord.AvailableQuantity
+                    }
+                );
             }
         }
     }

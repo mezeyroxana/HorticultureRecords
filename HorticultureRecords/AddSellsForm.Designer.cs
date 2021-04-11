@@ -29,6 +29,7 @@ namespace HorticultureRecords
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddSellsForm));
             this.label1 = new System.Windows.Forms.Label();
             this.flowerQuantity_tb = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -45,7 +46,7 @@ namespace HorticultureRecords
             this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(534, 50);
+            this.label1.Size = new System.Drawing.Size(551, 50);
             this.label1.TabIndex = 4;
             this.label1.Text = " Eladások hozzáadása";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -54,12 +55,11 @@ namespace HorticultureRecords
             // 
             this.flowerQuantity_tb.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.flowerQuantity_tb.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(160)))), ((int)(((byte)(31)))));
-            this.flowerQuantity_tb.Location = new System.Drawing.Point(216, 124);
+            this.flowerQuantity_tb.Location = new System.Drawing.Point(234, 125);
             this.flowerQuantity_tb.Margin = new System.Windows.Forms.Padding(4);
             this.flowerQuantity_tb.Name = "flowerQuantity_tb";
             this.flowerQuantity_tb.Size = new System.Drawing.Size(160, 26);
             this.flowerQuantity_tb.TabIndex = 4;
-            this.flowerQuantity_tb.TextChanged += new System.EventHandler(this.flowerQuantity_tb_TextChanged);
             // 
             // label6
             // 
@@ -91,7 +91,7 @@ namespace HorticultureRecords
             this.saveSelledFlowerQuantity_btn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.saveSelledFlowerQuantity_btn.Font = new System.Drawing.Font("Cambria", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.saveSelledFlowerQuantity_btn.ForeColor = System.Drawing.Color.White;
-            this.saveSelledFlowerQuantity_btn.Location = new System.Drawing.Point(216, 178);
+            this.saveSelledFlowerQuantity_btn.Location = new System.Drawing.Point(234, 178);
             this.saveSelledFlowerQuantity_btn.Margin = new System.Windows.Forms.Padding(4);
             this.saveSelledFlowerQuantity_btn.Name = "saveSelledFlowerQuantity_btn";
             this.saveSelledFlowerQuantity_btn.Size = new System.Drawing.Size(160, 55);
@@ -107,7 +107,7 @@ namespace HorticultureRecords
             this.flowerGenus_cb.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.flowerGenus_cb.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(160)))), ((int)(((byte)(31)))));
             this.flowerGenus_cb.FormattingEnabled = true;
-            this.flowerGenus_cb.Location = new System.Drawing.Point(216, 78);
+            this.flowerGenus_cb.Location = new System.Drawing.Point(234, 79);
             this.flowerGenus_cb.Margin = new System.Windows.Forms.Padding(4);
             this.flowerGenus_cb.Name = "flowerGenus_cb";
             this.flowerGenus_cb.Size = new System.Drawing.Size(272, 27);
@@ -118,16 +118,17 @@ namespace HorticultureRecords
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(534, 246);
+            this.ClientSize = new System.Drawing.Size(551, 246);
             this.Controls.Add(this.flowerGenus_cb);
             this.Controls.Add(this.saveSelledFlowerQuantity_btn);
             this.Controls.Add(this.flowerQuantity_tb);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AddSellsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "AddSellsForm";
+            this.Text = "Eladások hozzáadása";
             this.Load += new System.EventHandler(this.AddSellsForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

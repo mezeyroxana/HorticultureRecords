@@ -1,51 +1,12 @@
-﻿using HorticultureRecords.Database.Interfaces;
-using HorticultureRecords.Database.Records;
-using System.Collections.Generic;
+﻿using HorticultureRecords.Database.Records;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 
 namespace HorticultureRecords.Database.Managers
 {
-    class CustomerManager : BaseDatabaseHelper, IDataManipulationLanguage, IQueryLanguage
+    class CustomerManager
     {
-        public int Delete(Record record)
-        {
-            SqlCommand command = new SqlCommand();
-            command.CommandType = CommandType.StoredProcedure;
-            command.CommandText = @"DELETE_customers";
-            command.Parameters.Add("p_id", SqlDbType.Int).Value = record.Id;
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                if (connection.State == ConnectionState.Closed)
-                    connection.Open();
-
-                command.Connection = connection;
-                int deletedRows = command.ExecuteNonQuery();
-                return deletedRows;
-            }
-        }
-
-        public int Insert(Record record)
-        {
-            SqlCommand command = new SqlCommand();
-            command.CommandType = CommandType.Text;
-            command.CommandText = @"INSERT INTO customers (name, phonenumber, email, address) VALUES (@name, @phonenumber, @email, @address)";
-            command.Parameters.AddWithValue("@name", (record as FlowerRecord).Name);
-            command.Parameters.AddWithValue("@quantity", (record as FlowerRecord).Quantity);
-            command.Parameters.AddWithValue("@genus", (record as FlowerRecord).Genus);
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                if (connection.State == ConnectionState.Closed)
-                    connection.Open();
-
-                command.Connection = connection;
-                int insertedRows = command.ExecuteNonQuery();
-                return insertedRows;
-            }
-        }
-
         public Record Select(Record record)
         {
             SqlCommand command = new SqlCommand();
@@ -53,58 +14,42 @@ namespace HorticultureRecords.Database.Managers
             command.CommandText = @"SELECT * FROM Customers WHERE id = @id";
             command.Parameters.AddWithValue("@id", record.Id);
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            try
             {
-                if (connection.State == ConnectionState.Closed)
-                    connection.Open();
-
-                command.Connection = connection;
-                SqlDataReader reader = command.ExecuteReader();
-
-                CustomerRecord selectedRecord = new CustomerRecord();
-                if (reader.Read())
+                using (SqlConnection connection = new SqlConnection(DatabaseHelper.connectionString))
                 {
-                    selectedRecord = new CustomerRecord(
-                        int.Parse(reader["id"].ToString()),
-                        reader["name"].ToString(),
-                        reader["phonenumber"].ToString(),
-                        reader["email"].ToString(),
-                        reader["city"].ToString(),
-                        reader["address"].ToString()
-                    );
+                    if (connection.State == ConnectionState.Closed)
+                        connection.Open();
+
+                    command.Connection = connection;
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    CustomerRecord selectedRecord = new CustomerRecord();
+                    if (reader.Read())
+                    {
+                        selectedRecord = new CustomerRecord(
+                            int.Parse(reader["id"].ToString()),
+                            reader["name"].ToString(),
+                            reader["phonenumber"].ToString(),
+                            reader["email"].ToString(),
+                            reader["city"].ToString(),
+                            reader["address"].ToString()
+                        );
+                    }
+                    return selectedRecord;
                 }
-                return selectedRecord;
             }
-        }
-
-        public List<Record> Select()
-        {
-            List<Record> records = new List<Record>();
-
-            SqlCommand command = new SqlCommand();
-            command.CommandType = CommandType.Text;
-            command.CommandText = @"SELECT * FROM customers ORDER BY name";
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            catch (InvalidOperationException)
             {
-                if (connection.State == ConnectionState.Closed)
-                    connection.Open();
-
-                command.Connection = connection;
-                SqlDataReader reader = command.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    CustomerRecord nextRecord = new CustomerRecord(
-                        int.Parse(reader["id"].ToString()),
-                        reader["name"].ToString(),
-                        reader["phonenumber"].ToString(),
-                        reader["email"].ToString(),
-                        reader["city"].ToString(),
-                        reader["address"].ToString());
-                    records.Add(nextRecord);
-                }
-                return records;
+                throw new DatabaseException("Nem sikerült kapcsolatot létesíteni az adatbázissal!");
+            }
+            catch (SqlException)
+            {
+                throw new DatabaseException("Nem sikerült a művelet végrehajtása!");
+            }
+            catch (Exception)
+            {
+                throw new DatabaseException("Adatbázishiba lépett fel!");
             }
         }
 
@@ -121,14 +66,29 @@ namespace HorticultureRecords.Database.Managers
             command.Parameters.AddWithValue("@city", (record as CustomerRecord).City);
             command.Parameters.AddWithValue("@address", (record as CustomerRecord).Address);
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            try
             {
-                if (connection.State == ConnectionState.Closed)
-                    connection.Open();
+                using (SqlConnection connection = new SqlConnection(DatabaseHelper.connectionString))
+                {
+                    if (connection.State == ConnectionState.Closed)
+                        connection.Open();
 
-                command.Connection = connection;
-                int affectedRows = command.ExecuteNonQuery();
-                return affectedRows;
+                    command.Connection = connection;
+                    int affectedRows = command.ExecuteNonQuery();
+                    return affectedRows;
+                }
+            }
+            catch (InvalidOperationException)
+            {
+                throw new DatabaseException("Nem sikerült kapcsolatot létesíteni az adatbázissal!");
+            }
+            catch (SqlException)
+            {
+                throw new DatabaseException("Nem sikerült a művelet végrehajtása!");
+            }
+            catch (Exception)
+            {
+                throw new DatabaseException("Adatbázishiba lépett fel!");
             }
         }
     }

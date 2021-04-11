@@ -1,5 +1,4 @@
-﻿using HorticultureRecords.Database.Interfaces;
-using HorticultureRecords.Database.Records;
+﻿using HorticultureRecords.Database.Records;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -7,23 +6,38 @@ using System.Data.SqlClient;
 
 namespace HorticultureRecords.Database.Managers
 {
-    class OrderManager : BaseDatabaseHelper, IDataManipulationLanguage, IQueryLanguage
+    class OrderManager
     {
         public int Delete(Record record)
         {
             SqlCommand command = new SqlCommand();
-            command.CommandType = CommandType.StoredProcedure;
-            command.CommandText = @"DELETE_ORDERS";
-            command.Parameters.Add("@id", SqlDbType.Int).Value = record.Id;
+            command.CommandType = CommandType.Text;
+            command.CommandText = @"DELETE FROM Orders WHERE Id = @id";
+            command.Parameters.AddWithValue("@id", record.Id);
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            try
             {
-                if (connection.State == ConnectionState.Closed)
-                    connection.Open();
+                using (SqlConnection connection = new SqlConnection(DatabaseHelper.connectionString))
+                {
+                    if (connection.State == ConnectionState.Closed)
+                        connection.Open();
 
-                command.Connection = connection;
-                int deletedRows = command.ExecuteNonQuery();
-                return deletedRows;
+                    command.Connection = connection;
+                    int deletedRows = command.ExecuteNonQuery();
+                    return deletedRows;
+                }
+            }
+            catch (InvalidOperationException)
+            {
+                throw new DatabaseException("Nem sikerült kapcsolatot létesíteni az adatbázissal!");
+            }
+            catch (SqlException)
+            {
+                throw new DatabaseException("Nem sikerült a művelet végrehajtása!");
+            }
+            catch (Exception)
+            {
+                throw new DatabaseException("Adatbázishiba lépett fel!");
             }
         }
 
@@ -42,15 +56,68 @@ namespace HorticultureRecords.Database.Managers
             command.Parameters.Add("@quantity", SqlDbType.Int).Value = (record as OrderRecord).Quantity;
             command.Parameters.Add("@isCompleted", SqlDbType.Bit).Value = (record as OrderRecord).IsCompleted;
             command.Parameters.Add("@isDeliveryRequested", SqlDbType.Bit).Value = (record as OrderRecord).IsDeliveryRequested;
+            command.Parameters.Add("@comment", SqlDbType.NVarChar).Value = (record as OrderRecord).Comment;
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            try
             {
-                if (connection.State == ConnectionState.Closed)
-                    connection.Open();
+                using (SqlConnection connection = new SqlConnection(DatabaseHelper.connectionString))
+                {
+                    if (connection.State == ConnectionState.Closed)
+                        connection.Open();
 
-                command.Connection = connection;
-                int affectedRows = command.ExecuteNonQuery();
-                return affectedRows;
+                    command.Connection = connection;
+                    int affectedRows = command.ExecuteNonQuery();
+                    return affectedRows;
+                }
+            }
+            catch (InvalidOperationException)
+            {
+                throw new DatabaseException("Nem sikerült kapcsolatot létesíteni az adatbázissal!");
+            }
+            catch (SqlException)
+            {
+                throw new DatabaseException("Nem sikerült a művelet végrehajtása!");
+            }
+            catch (Exception)
+            {
+                throw new DatabaseException("Adatbázishiba lépett fel!");
+            }
+        }
+
+        public int Update(Record record)
+        {
+            SqlCommand command = new SqlCommand();
+            command.CommandType = CommandType.Text;
+            command.CommandText = @"UPDATE Orders SET IsCompleted = @isCompleted, IsDeliveryRequested = @isDeliveryRequested, Comment = @comment WHERE Id = @id";
+            command.Parameters.AddWithValue("@isCompleted", (record as OrderRecord).IsCompleted);
+            command.Parameters.AddWithValue("@isDeliveryRequested", (record as OrderRecord).IsDeliveryRequested);
+            command.Parameters.AddWithValue("@comment", (record as OrderRecord).Comment);
+            command.Parameters.AddWithValue("@id", record.Id);
+
+            try
+            {
+                using (SqlConnection connection = new SqlConnection(DatabaseHelper.connectionString))
+                {
+                    if (connection.State == ConnectionState.Closed)
+                        connection.Open();
+
+                    command.Connection = connection;
+                    int updatedRows = command.ExecuteNonQuery();
+
+                    return updatedRows;
+                }
+            }
+            catch (InvalidOperationException)
+            {
+                throw new DatabaseException("Nem sikerült kapcsolatot létesíteni az adatbázissal!");
+            }
+            catch (SqlException)
+            {
+                throw new DatabaseException("Nem sikerült a művelet végrehajtása!");
+            }
+            catch (Exception)
+            {
+                throw new DatabaseException("Adatbázishiba lépett fel!");
             }
         }
 
@@ -58,50 +125,45 @@ namespace HorticultureRecords.Database.Managers
         {
             SqlCommand command = new SqlCommand();
             command.CommandType = CommandType.Text;
-            command.CommandText = "SELECT * FROM orderDatas WHERE id = @id";
+            command.CommandText = "SELECT Orders.Id, Customers.Id, Customers.Name, Orders.IsCompleted, Orders.IsDeliveryRequested, Orders.Comment FROM Orders INNER JOIN Customers ON Orders.CustomerId = Customers.Id WHERE Orders.Id = @id";
             command.Parameters.AddWithValue("@id", record.Id);
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            try
             {
-                if (connection.State == ConnectionState.Closed)
-                    connection.Open();
-
-                command.Connection = connection;
-                SqlDataReader reader = command.ExecuteReader();
-
-                OrderRecord selectedRecord = new OrderRecord();
-                if (reader.Read())
+                using (SqlConnection connection = new SqlConnection(DatabaseHelper.connectionString))
                 {
-                    selectedRecord = new OrderRecord(
-                        int.Parse(reader["id"].ToString()),
-                        int.Parse(reader["customerId"].ToString()),
-                        Convert.ToBoolean(reader["isCompleted"].ToString()),
-                        Convert.ToBoolean(reader["isDeliveryRequested"].ToString())
-                    );
+                    if (connection.State == ConnectionState.Closed)
+                        connection.Open();
+
+                    command.Connection = connection;
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    OrderRecord selectedRecord = new OrderRecord();
+                    if (reader.Read())
+                    {
+                        selectedRecord = new OrderRecord(
+                            int.Parse(reader[0].ToString()),
+                            int.Parse(reader[1].ToString()),
+                            reader[2].ToString(),
+                            Convert.ToBoolean(reader[3].ToString()),
+                            Convert.ToBoolean(reader[4].ToString()),
+                            reader[5].ToString()
+                        );
+                    }
+                    return selectedRecord;
                 }
-                return selectedRecord;
             }
-        }
-
-        public int SelectMarketableFlowerQuantity(FlowerRecord flower)
-        {
-            SqlCommand command = new SqlCommand();
-            command.CommandType = CommandType.Text;
-            command.CommandText = "SELECT OrderedFlowers.FlowerId, SUM(OrderedFlowers.Quantity) FROM OrderedFlowers INNER JOIN OrderDatas ON OrderedFlowers.OrderId = OrderDatas.Id WHERE OrderedFlowers.FlowerId = @flowerId AND OrderDatas.IsCompleted = 0 GROUP BY OrderedFlowers.FlowerId";
-            command.Parameters.AddWithValue("@flowerId", flower.Id);
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            catch (InvalidOperationException)
             {
-                if (connection.State == ConnectionState.Closed)
-                    connection.Open();
-
-                command.Connection = connection;
-                SqlDataReader reader = command.ExecuteReader();
-
-                int orderedQuantity = 0;
-                if (reader.Read())
-                    orderedQuantity = int.Parse(reader[1].ToString());
-                return orderedQuantity;
+                throw new DatabaseException("Nem sikerült kapcsolatot létesíteni az adatbázissal!");
+            }
+            catch (SqlException)
+            {
+                throw new DatabaseException("Nem sikerült a művelet végrehajtása!");
+            }
+            catch (Exception)
+            {
+                throw new DatabaseException("Adatbázishiba lépett fel!");
             }
         }
 
@@ -111,146 +173,44 @@ namespace HorticultureRecords.Database.Managers
 
             SqlCommand command = new SqlCommand();
             command.CommandType = CommandType.Text;
-            command.CommandText = @"SELECT * FROM orders ORDER BY flowerId";
+            command.CommandText = @"SELECT Orders.Id, Customers.Id, Customers.Name, Orders.IsCompleted, Orders.IsDeliveryRequested, Orders.Comment FROM Orders INNER JOIN Customers ON Orders.CustomerId = Customers.Id";
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            try
             {
-                if (connection.State == ConnectionState.Closed)
-                    connection.Open();
-
-                command.Connection = connection;
-                SqlDataReader reader = command.ExecuteReader();
-
-                while (reader.Read())
+                using (SqlConnection connection = new SqlConnection(DatabaseHelper.connectionString))
                 {
-                    OrderRecord nextRecord = new OrderRecord(
-                        int.Parse(reader["id"].ToString()),
-                        int.Parse(reader["customerId"].ToString()),
-                        Convert.ToBoolean(reader["isCompleted"].ToString()),
-                        Convert.ToBoolean(reader["isDeliveryRequested"].ToString())
-                    );
-                    records.Add(nextRecord);
+                    if (connection.State == ConnectionState.Closed)
+                        connection.Open();
+
+                    command.Connection = connection;
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        OrderRecord nextRecord = new OrderRecord(
+                            int.Parse(reader[0].ToString()),
+                            int.Parse(reader[1].ToString()),
+                            reader[2].ToString(),
+                            Convert.ToBoolean(reader[3].ToString()),
+                            Convert.ToBoolean(reader[4].ToString()),
+                            reader[5].ToString()
+                        );
+                        records.Add(nextRecord);
+                    }
+                    return records;
                 }
-                return records;
             }
-        }
-
-        public int Update(Record record)
-        {
-            SqlCommand command = new SqlCommand();
-            command.CommandType = CommandType.StoredProcedure;
-            command.CommandText = "UPDATE_ORDERS";
-            command.Parameters.Add("@isCompleted", SqlDbType.Bit).Value = (record as OrderRecord).IsCompleted;
-            command.Parameters.Add("@isDeliveryRequested", SqlDbType.Bit).Value = (record as OrderRecord).IsDeliveryRequested;
-            command.Parameters.Add("@id", SqlDbType.Int).Value = record.Id;
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            catch (InvalidOperationException)
             {
-                if (connection.State == ConnectionState.Closed)
-                    connection.Open();
-
-                command.Connection = connection;
-                int updatedRows = command.ExecuteNonQuery();
-
-                return updatedRows;
+                throw new DatabaseException("Nem sikerült kapcsolatot létesíteni az adatbázissal!");
             }
-        }
-
-        public int UpdateFlowerOrder(Record record)
-        {
-            SqlCommand command = new SqlCommand();
-            command.CommandType = CommandType.StoredProcedure;
-            command.CommandText = "UPDATE_FLOWERORDERS";
-            command.Parameters.AddWithValue("@orderId", (record as OrderRecord).Id);
-            command.Parameters.AddWithValue("@flowerId", (record as OrderRecord).FlowerId);
-            command.Parameters.AddWithValue("@quantity", (record as OrderRecord).Quantity);
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            catch (SqlException)
             {
-                if (connection.State == ConnectionState.Closed)
-                    connection.Open();
-
-                command.Connection = connection;
-                int updatedRows = command.ExecuteNonQuery();
-                return updatedRows;
+                throw new DatabaseException("Nem sikerült a művelet végrehajtása!");
             }
-        }
-
-        public int DeleteFlowerOrder(Record record)
-        {
-            SqlCommand command = new SqlCommand();
-            command.CommandType = CommandType.Text;
-            command.CommandText = @"DELETE FROM OrderedFlowers WHERE OrderId = @orderId AND FlowerId = @flowerId";
-            command.Parameters.AddWithValue("@orderId", record.Id);
-            command.Parameters.AddWithValue("@flowerId", (record as OrderRecord).FlowerId);
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            catch (Exception)
             {
-                if (connection.State == ConnectionState.Closed)
-                    connection.Open();
-
-                command.Connection = connection;
-                int deletedRows = command.ExecuteNonQuery();
-                return deletedRows;
-            }
-
-        }
-
-        public List<Record> SelectFlowersForSpecificOrder(Record orderRecord)
-        {
-            List<Record> records = new List<Record>();
-            SqlCommand command = new SqlCommand();
-            command.CommandType = CommandType.Text;
-            command.CommandText = @"SELECT FlowerId, Quantity From OrderedFlowers WHERE OrderId = @orderId";
-            command.Parameters.AddWithValue("@orderId", orderRecord.Id);
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                if (connection.State == ConnectionState.Closed)
-                    connection.Open();
-
-                command.Connection = connection;
-                SqlDataReader reader = command.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    FlowerRecord nextRecord = new FlowerRecord(
-                        int.Parse(reader["FlowerId"].ToString()),
-                        int.Parse(reader["Quantity"].ToString())
-                    );
-                    records.Add(nextRecord);
-                }
-                return records;
-            }
-        }
-
-
-        public List<Record> SelectOrders()
-        {
-            List<Record> records = new List<Record>();
-            SqlCommand command = new SqlCommand();
-            command.CommandType = CommandType.Text;
-            command.CommandText = @"SELECT Id, CustomerId, IsDeliveryRequested, IsCompleted FROM OrderDatas";
-
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                if (connection.State == ConnectionState.Closed)
-                    connection.Open();
-
-                command.Connection = connection;
-                SqlDataReader reader = command.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    OrderRecord nextRecord = new OrderRecord(
-                        int.Parse(reader["Id"].ToString()),
-                        int.Parse(reader["customerId"].ToString()),
-                        Convert.ToBoolean(reader["isCompleted"].ToString()),
-                        Convert.ToBoolean(reader["isDeliveryRequested"].ToString())
-                    );
-                    records.Add(nextRecord);
-                }
-                return records;
+                throw new DatabaseException("Adatbázishiba lépett fel!");
             }
         }
     }

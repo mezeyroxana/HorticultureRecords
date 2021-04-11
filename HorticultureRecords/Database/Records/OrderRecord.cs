@@ -54,19 +54,27 @@ namespace HorticultureRecords.Database.Records
             set { isCompleted = value; }
         }
 
+        private string comment;
+        public string Comment
+        {
+            get { return comment; }
+            set { comment = value; }
+        }
+
         public OrderRecord() : base() { }
 
         public OrderRecord(int? id) : base(id) { }
 
-        public OrderRecord(int? id, bool isCompleted, bool isDeliveryRequested) : this(id)
+        public OrderRecord(int?id, bool isCompleted, bool isDeliveryRequested, string comment) : this(id)
         {
             this.isCompleted = isCompleted;
             this.isDeliveryRequested = isDeliveryRequested;
+            this.comment = comment;
         }
 
-        public OrderRecord(int? orderId, int? customerId, bool isCompleted, bool isDeliveryRequested) : this(orderId, isCompleted, isDeliveryRequested)
+        public OrderRecord(int? orderId, int? customerId, string customerName, bool isCompleted, bool isDeliveryRequested, string comment) : this(orderId, isCompleted, isDeliveryRequested, comment)
         {
-            customer = new CustomerRecord(customerId);
+            customer = new CustomerRecord(customerId, customerName);
         }
 
         public OrderRecord(int? id, int? flowerId) : this(id)

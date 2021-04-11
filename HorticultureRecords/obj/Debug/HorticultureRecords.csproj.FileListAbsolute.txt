@@ -28,7 +28,6 @@ D:\Programming\VisualStudio\HorticultureRecords\HorticultureRecords\bin\Debug\Ho
 D:\Programming\VisualStudio\HorticultureRecords\HorticultureRecords\bin\Debug\HorticultureRecords.exe.config
 D:\Programming\VisualStudio\HorticultureRecords\HorticultureRecords\bin\Debug\HorticultureRecords.exe
 D:\Programming\VisualStudio\HorticultureRecords\HorticultureRecords\bin\Debug\HorticultureRecords.pdb
-D:\Programming\VisualStudio\HorticultureRecords\HorticultureRecords\obj\Debug\HorticultureRecords.csprojAssemblyReference.cache
 D:\Programming\VisualStudio\HorticultureRecords\HorticultureRecords\obj\Debug\HorticultureRecords.MainForm.resources
 D:\Programming\VisualStudio\HorticultureRecords\HorticultureRecords\obj\Debug\HorticultureRecords.NewOrderForm.resources
 D:\Programming\VisualStudio\HorticultureRecords\HorticultureRecords\obj\Debug\HorticultureRecords.Properties.Resources.resources
@@ -40,3 +39,19 @@ D:\Programming\VisualStudio\HorticultureRecords\HorticultureRecords\obj\Debug\Ho
 D:\VS\HorticultureRecords\HorticultureRecords\obj\Debug\HorticultureRecords.OrdersForm.resources
 D:\VS\HorticultureRecords\HorticultureRecords\obj\Debug\HorticultureRecords.AddSellsForm.resources
 D:\Programming\VisualStudio\HorticultureRecords\HorticultureRecords\obj\Debug\HorticultureRecords.AddSellsForm.resources
+D:\Programming\VisualStudio\HorticultureRecords\HorticultureRecords\bin\Debug\database.config
+D:\Projects\HorticultureRecords\HorticultureRecords\obj\Debug\HorticultureRecords.AddSellsForm.resources
+D:\Projects\HorticultureRecords\HorticultureRecords\obj\Debug\HorticultureRecords.MainForm.resources
+D:\Projects\HorticultureRecords\HorticultureRecords\obj\Debug\HorticultureRecords.NewOrderForm.resources
+D:\Projects\HorticultureRecords\HorticultureRecords\obj\Debug\HorticultureRecords.OrdersForm.resources
+D:\Projects\HorticultureRecords\HorticultureRecords\obj\Debug\HorticultureRecords.Properties.Resources.resources
+D:\Projects\HorticultureRecords\HorticultureRecords\obj\Debug\HorticultureRecords.csproj.GenerateResource.cache
+D:\Projects\HorticultureRecords\HorticultureRecords\obj\Debug\HorticultureRecords.csproj.CoreCompileInputs.cache
+D:\Projects\HorticultureRecords\HorticultureRecords\obj\Debug\HorticultureRecords.exe
+D:\Projects\HorticultureRecords\HorticultureRecords\obj\Debug\HorticultureRecords.pdb
+D:\Projects\HorticultureRecords\HorticultureRecords\bin\Debug\HorticultureDatabase.mdf
+D:\Projects\HorticultureRecords\HorticultureRecords\bin\Debug\HorticultureDatabase_log.ldf
+D:\Projects\HorticultureRecords\HorticultureRecords\bin\Debug\database.config
+D:\Projects\HorticultureRecords\HorticultureRecords\bin\Debug\HorticultureRecords.exe.config
+D:\Projects\HorticultureRecords\HorticultureRecords\bin\Debug\HorticultureRecords.exe
+D:\Projects\HorticultureRecords\HorticultureRecords\bin\Debug\HorticultureRecords.pdb

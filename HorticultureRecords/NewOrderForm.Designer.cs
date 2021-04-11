@@ -32,6 +32,7 @@ namespace HorticultureRecords
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NewOrderForm));
             this.label1 = new System.Windows.Forms.Label();
             this.customerName_tb = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -52,11 +53,11 @@ namespace HorticultureRecords
             this.customerAddress_tb = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.customerCity_tb = new System.Windows.Forms.TextBox();
-            this.customerAddress_panel = new System.Windows.Forms.Panel();
             this.nextFlowerOrder_btn = new System.Windows.Forms.Button();
             this.saveOrder_btn = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.comment_tb = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.orderedFlowers_dgv)).BeginInit();
-            this.customerAddress_panel.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -64,7 +65,7 @@ namespace HorticultureRecords
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Cambria", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(160)))), ((int)(((byte)(31)))));
-            this.label1.Location = new System.Drawing.Point(25, 85);
+            this.label1.Location = new System.Drawing.Point(25, 80);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(48, 22);
@@ -85,7 +86,7 @@ namespace HorticultureRecords
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Cambria", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(160)))), ((int)(((byte)(31)))));
-            this.label2.Location = new System.Drawing.Point(25, 130);
+            this.label2.Location = new System.Drawing.Point(25, 125);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(124, 22);
@@ -115,7 +116,7 @@ namespace HorticultureRecords
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Cambria", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(160)))), ((int)(((byte)(31)))));
-            this.label3.Location = new System.Drawing.Point(25, 175);
+            this.label3.Location = new System.Drawing.Point(25, 170);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(101, 22);
@@ -148,7 +149,7 @@ namespace HorticultureRecords
             this.flowerGenus_cb.Margin = new System.Windows.Forms.Padding(4);
             this.flowerGenus_cb.Name = "flowerGenus_cb";
             this.flowerGenus_cb.Size = new System.Drawing.Size(272, 27);
-            this.flowerGenus_cb.TabIndex = 15;
+            this.flowerGenus_cb.TabIndex = 14;
             // 
             // label5
             // 
@@ -159,7 +160,7 @@ namespace HorticultureRecords
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(105, 22);
-            this.label5.TabIndex = 14;
+            this.label5.TabIndex = 13;
             this.label5.Text = "Virág fajta:";
             // 
             // flowerQuantity_tb
@@ -168,9 +169,8 @@ namespace HorticultureRecords
             this.flowerQuantity_tb.Location = new System.Drawing.Point(682, 120);
             this.flowerQuantity_tb.Margin = new System.Windows.Forms.Padding(4);
             this.flowerQuantity_tb.Name = "flowerQuantity_tb";
-            this.flowerQuantity_tb.Size = new System.Drawing.Size(148, 26);
-            this.flowerQuantity_tb.TabIndex = 17;
-            this.flowerQuantity_tb.Leave += new System.EventHandler(this.flowerQuantity_tb_Leave);
+            this.flowerQuantity_tb.Size = new System.Drawing.Size(114, 26);
+            this.flowerQuantity_tb.TabIndex = 16;
             // 
             // label6
             // 
@@ -181,7 +181,7 @@ namespace HorticultureRecords
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(113, 22);
-            this.label6.TabIndex = 16;
+            this.label6.TabIndex = 15;
             this.label6.Text = "Darabszám:";
             // 
             // orderedFlowers_dgv
@@ -220,28 +220,33 @@ namespace HorticultureRecords
             this.orderedFlowers_dgv.DefaultCellStyle = dataGridViewCellStyle3;
             this.orderedFlowers_dgv.EnableHeadersVisualStyles = false;
             this.orderedFlowers_dgv.GridColor = System.Drawing.Color.Black;
-            this.orderedFlowers_dgv.Location = new System.Drawing.Point(514, 270);
+            this.orderedFlowers_dgv.Location = new System.Drawing.Point(514, 260);
             this.orderedFlowers_dgv.Margin = new System.Windows.Forms.Padding(4);
             this.orderedFlowers_dgv.MultiSelect = false;
             this.orderedFlowers_dgv.Name = "orderedFlowers_dgv";
             this.orderedFlowers_dgv.ReadOnly = true;
             this.orderedFlowers_dgv.RowHeadersVisible = false;
+            this.orderedFlowers_dgv.RowHeadersWidth = 45;
             this.orderedFlowers_dgv.RowTemplate.Height = 30;
             this.orderedFlowers_dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.orderedFlowers_dgv.Size = new System.Drawing.Size(440, 240);
-            this.orderedFlowers_dgv.TabIndex = 20;
+            this.orderedFlowers_dgv.TabIndex = 19;
+            this.orderedFlowers_dgv.TabStop = false;
             // 
             // FlowerId
             // 
             this.FlowerId.HeaderText = "Id";
+            this.FlowerId.MinimumWidth = 6;
             this.FlowerId.Name = "FlowerId";
             this.FlowerId.ReadOnly = true;
             this.FlowerId.Visible = false;
+            this.FlowerId.Width = 110;
             // 
             // FlowerGenus
             // 
             this.FlowerGenus.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.FlowerGenus.HeaderText = "Fajta";
+            this.FlowerGenus.MinimumWidth = 6;
             this.FlowerGenus.Name = "FlowerGenus";
             this.FlowerGenus.ReadOnly = true;
             // 
@@ -249,6 +254,7 @@ namespace HorticultureRecords
             // 
             this.FlowerQuantity.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
             this.FlowerQuantity.HeaderText = "Mennyiség";
+            this.FlowerQuantity.MinimumWidth = 6;
             this.FlowerQuantity.Name = "FlowerQuantity";
             this.FlowerQuantity.ReadOnly = true;
             this.FlowerQuantity.Width = 106;
@@ -272,53 +278,42 @@ namespace HorticultureRecords
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Cambria", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(160)))), ((int)(((byte)(31)))));
-            this.label8.Location = new System.Drawing.Point(0, 96);
+            this.label8.Location = new System.Drawing.Point(25, 305);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(78, 22);
-            this.label8.TabIndex = 12;
+            this.label8.TabIndex = 9;
             this.label8.Text = "Lakcím:";
             // 
             // customerAddress_tb
             // 
             this.customerAddress_tb.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(160)))), ((int)(((byte)(31)))));
-            this.customerAddress_tb.Location = new System.Drawing.Point(170, 91);
+            this.customerAddress_tb.Location = new System.Drawing.Point(195, 305);
             this.customerAddress_tb.Margin = new System.Windows.Forms.Padding(4);
             this.customerAddress_tb.Name = "customerAddress_tb";
             this.customerAddress_tb.Size = new System.Drawing.Size(272, 26);
-            this.customerAddress_tb.TabIndex = 13;
+            this.customerAddress_tb.TabIndex = 10;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Cambria", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(160)))), ((int)(((byte)(31)))));
-            this.label9.Location = new System.Drawing.Point(0, 51);
+            this.label9.Location = new System.Drawing.Point(25, 260);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(65, 22);
-            this.label9.TabIndex = 10;
+            this.label9.TabIndex = 7;
             this.label9.Text = "Város:";
             // 
             // customerCity_tb
             // 
             this.customerCity_tb.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(160)))), ((int)(((byte)(31)))));
-            this.customerCity_tb.Location = new System.Drawing.Point(170, 46);
+            this.customerCity_tb.Location = new System.Drawing.Point(195, 260);
             this.customerCity_tb.Margin = new System.Windows.Forms.Padding(4);
             this.customerCity_tb.Name = "customerCity_tb";
             this.customerCity_tb.Size = new System.Drawing.Size(272, 26);
-            this.customerCity_tb.TabIndex = 11;
-            // 
-            // customerAddress_panel
-            // 
-            this.customerAddress_panel.Controls.Add(this.label9);
-            this.customerAddress_panel.Controls.Add(this.customerCity_tb);
-            this.customerAddress_panel.Controls.Add(this.customerAddress_tb);
-            this.customerAddress_panel.Controls.Add(this.label8);
-            this.customerAddress_panel.Location = new System.Drawing.Point(29, 264);
-            this.customerAddress_panel.Name = "customerAddress_panel";
-            this.customerAddress_panel.Size = new System.Drawing.Size(451, 126);
-            this.customerAddress_panel.TabIndex = 7;
+            this.customerCity_tb.TabIndex = 8;
             // 
             // nextFlowerOrder_btn
             // 
@@ -330,7 +325,7 @@ namespace HorticultureRecords
             this.nextFlowerOrder_btn.Margin = new System.Windows.Forms.Padding(4);
             this.nextFlowerOrder_btn.Name = "nextFlowerOrder_btn";
             this.nextFlowerOrder_btn.Size = new System.Drawing.Size(160, 55);
-            this.nextFlowerOrder_btn.TabIndex = 21;
+            this.nextFlowerOrder_btn.TabIndex = 17;
             this.nextFlowerOrder_btn.Text = "Következő tétel";
             this.nextFlowerOrder_btn.UseVisualStyleBackColor = false;
             this.nextFlowerOrder_btn.Click += new System.EventHandler(this.nextFlowerOrder_btn_Click);
@@ -345,20 +340,47 @@ namespace HorticultureRecords
             this.saveOrder_btn.Margin = new System.Windows.Forms.Padding(4);
             this.saveOrder_btn.Name = "saveOrder_btn";
             this.saveOrder_btn.Size = new System.Drawing.Size(160, 55);
-            this.saveOrder_btn.TabIndex = 22;
+            this.saveOrder_btn.TabIndex = 18;
             this.saveOrder_btn.Text = "Rendelés rögzítése";
             this.saveOrder_btn.UseVisualStyleBackColor = false;
             this.saveOrder_btn.Click += new System.EventHandler(this.saveOrder_btn_Click);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Cambria", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(160)))), ((int)(((byte)(31)))));
+            this.label4.Location = new System.Drawing.Point(25, 359);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(115, 22);
+            this.label4.TabIndex = 11;
+            this.label4.Text = "Megjegyzés:";
+            // 
+            // comment_tb
+            // 
+            this.comment_tb.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(7)))), ((int)(((byte)(160)))), ((int)(((byte)(31)))));
+            this.comment_tb.Location = new System.Drawing.Point(29, 395);
+            this.comment_tb.Margin = new System.Windows.Forms.Padding(4);
+            this.comment_tb.Multiline = true;
+            this.comment_tb.Name = "comment_tb";
+            this.comment_tb.Size = new System.Drawing.Size(438, 54);
+            this.comment_tb.TabIndex = 12;
             // 
             // NewOrderForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(996, 535);
+            this.ClientSize = new System.Drawing.Size(996, 514);
+            this.Controls.Add(this.comment_tb);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.saveOrder_btn);
+            this.Controls.Add(this.customerCity_tb);
+            this.Controls.Add(this.customerAddress_tb);
             this.Controls.Add(this.nextFlowerOrder_btn);
-            this.Controls.Add(this.customerAddress_panel);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.customerEmail_tb);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label7);
@@ -373,14 +395,13 @@ namespace HorticultureRecords
             this.Controls.Add(this.label5);
             this.Controls.Add(this.isDelivery_chkb);
             this.Font = new System.Drawing.Font("Cambria", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "NewOrderForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Új rendelés felvétele";
             this.Load += new System.EventHandler(this.NewOrderForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.orderedFlowers_dgv)).EndInit();
-            this.customerAddress_panel.ResumeLayout(false);
-            this.customerAddress_panel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -405,11 +426,12 @@ namespace HorticultureRecords
         private System.Windows.Forms.TextBox customerAddress_tb;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox customerCity_tb;
-        private System.Windows.Forms.Panel customerAddress_panel;
         private System.Windows.Forms.Button nextFlowerOrder_btn;
         private System.Windows.Forms.Button saveOrder_btn;
         private System.Windows.Forms.DataGridViewTextBoxColumn FlowerId;
         private System.Windows.Forms.DataGridViewTextBoxColumn FlowerGenus;
         private System.Windows.Forms.DataGridViewTextBoxColumn FlowerQuantity;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox comment_tb;
     }
 }

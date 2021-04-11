@@ -49,6 +49,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -67,11 +68,11 @@
     <Compile Include="AddSellsForm.Designer.cs">
       <DependentUpon>AddSellsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Database\Interfaces\IDataManipulationLanguage.cs" />
-    <Compile Include="Database\Interfaces\IQueryLanguage.cs" />
-    <Compile Include="Database\Managers\BaseDatabaseHelper.cs" />
+    <Compile Include="DatabaseException.cs" />
+    <Compile Include="Database\Managers\DatabaseHelper.cs" />
     <Compile Include="Database\Managers\CustomerManager.cs" />
     <Compile Include="Database\Managers\FlowerManager.cs" />
+    <Compile Include="Database\Managers\OrderedFlowerManager.cs" />
     <Compile Include="Database\Managers\OrderManager.cs" />
     <Compile Include="Database\Records\CustomerRecord.cs" />
     <Compile Include="Database\Records\FlowerRecord.cs" />
@@ -118,6 +119,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="database.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
